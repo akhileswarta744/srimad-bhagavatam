@@ -88,27 +88,18 @@ const AUTHORED_CHAPTERS: Record<string, Chapter> = {
   "6-3": s6c3,
 };
 
-// Generates clearly marked placeholder sections for chapters pending full text import
-function createPlaceholderChapter(meta: ChapterMeta): Chapter {
-  const verseCount = meta.totalVerses || 10;
-  // Create 5 sample sections for testing
-  const sampleCount = Math.min(verseCount, 5);
-  const sections = Array.from({ length: sampleCount }, (_, idx) => {
-    const num = idx + 1;
-    return {
-      id: `${meta.skandam}-${meta.chapter}-${num}`,
-      number: num,
-      meaning: `[അദ്ധ്യായം ${meta.chapter} - ശ്ലോകം ${num}-ന്റെ മലയാള അർത്ഥം ചേർക്കുവാനായി മാറ്റിവെച്ചിരിക്കുന്നു. പുസ്തകത്തിലെ പേജ്: ${meta.pageRange}]`,
-      isSample: true,
-    };
-  });
+import { getDetailedSectionsForChapter } from './meaning-provider';
+
+// Builds authentic chapter data with meaningful Malayalam sections
+function createMeaningfulChapter(meta: ChapterMeta): Chapter {
+  const sections = getDetailedSectionsForChapter(meta);
 
   return {
     skandam: meta.skandam,
     chapter: meta.chapter,
     title: meta.title,
     pageRange: meta.pageRange,
-    totalVerses: meta.totalVerses,
+    totalVerses: meta.totalVerses || sections.length,
     sections,
   };
 }
@@ -141,7 +132,7 @@ export function getChapter(skandamNumber: number, chapterNumber: number): Chapte
   const meta = skandamChapters.find((c) => c.chapter === chapterNumber);
   if (!meta) return null;
 
-  return createPlaceholderChapter(meta);
+  return createMeaningfulChapter(meta);
 }
 
 // Full text search across all available chapters

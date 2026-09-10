@@ -36,7 +36,7 @@ export default function HomePage() {
             നിത്യപാരായണത്തിനായുള്ള മലയാള അർത്ഥം
           </p>
           <div className="mt-2 inline-flex items-center gap-1.5 text-xs text-devotional-accent font-semibold bg-devotional-accent-light px-3 py-1 rounded-full">
-            <span>പ്രഥമ സ്കന്ധം മുതൽ ഷഷ്ഠ സ്കന്ധം വരെ (പേജ് 47–498)</span>
+            <span>പ്രഥമ സ്കന്ധം മുതൽ ദ്വാദശ സ്കന്ധം വരെ (12 സ്കന്ധങ്ങൾ • 335 അദ്ധ്യായങ്ങൾ)</span>
           </div>
         </div>
 
@@ -109,10 +109,10 @@ export default function HomePage() {
         <div id="skandams" className="flex items-center justify-between mb-3 px-1">
           <h2 className="text-lg font-bold text-devotional-primary flex items-center gap-2">
             <BookOpen className="w-5 h-5 text-devotional-accent" />
-            <span>സ്കന്ധങ്ങൾ (1 മുതൽ 6 വരെ)</span>
+            <span>സ്കന്ധങ്ങൾ (1 മുതൽ 12 വരെ)</span>
           </h2>
           <span className="text-xs text-devotional-secondary font-medium">
-            ആകെ 6 സ്കന്ധങ്ങൾ
+            ആകെ 12 സ്കന്ധങ്ങൾ
           </span>
         </div>
 
