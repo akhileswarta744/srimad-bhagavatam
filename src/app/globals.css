@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-main: #FBF7EE;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F8F2E4;
+    --border-color: #E6D8BE;
+    --text-primary: #2B1608;
+    --text-secondary: #665043;
+    --accent: #B85304;
+    --accent-light: #FDE8D0;
+    --accent-hover: #9E4500;
+  }
+
+  body[data-theme="cream"] {
+    --bg-main: #FFFDF9;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F9F5EC;
+    --border-color: #EDE2CD;
+    --text-primary: #221812;
+    --text-secondary: #6B5B52;
+    --accent: #C45500;
+    --accent-light: #FEF0DF;
+    --accent-hover: #A34400;
+  }
+
+  body[data-theme="night"] {
+    --bg-main: #14110F;
+    --bg-card: #1F1A16;
+    --bg-card-hover: #29231E;
+    --border-color: #382F27;
+    --text-primary: #EFE7DA;
+    --text-secondary: #B5A496;
+    --accent: #ECA348;
+    --accent-light: #382512;
+    --accent-hover: #F3B76D;
+  }
+
+  html, body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Noto Sans Malayalam', 'Manjari', 'Gayathri', 'Kartika', 'Segoe UI', -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom utility classes for devotional theme */
+.bg-devotional-main {
+  background-color: var(--bg-main);
+}
+.bg-devotional-card {
+  background-color: var(--bg-card);
+}
+.border-devotional {
+  border-color: var(--border-color);
+}
+.text-devotional-primary {
+  color: var(--text-primary);
+}
+.text-devotional-secondary {
+  color: var(--text-secondary);
+}
+.text-devotional-accent {
+  color: var(--accent);
+}
+.bg-devotional-accent {
+  background-color: var(--accent);
+}
+.bg-devotional-accent-light {
+  background-color: var(--accent-light);
+}
+
+/* Smooth reading highlight */
+.verse-target {
+  scroll-margin-top: 100px;
+}
+.verse-highlight {
+  animation: pulse-gold 2.5s ease-out;
+}
+
+@keyframes pulse-gold {
+  0% { background-color: var(--accent-light); }
+  50% { background-color: var(--accent-light); }
+  100% { background-color: transparent; }
 }

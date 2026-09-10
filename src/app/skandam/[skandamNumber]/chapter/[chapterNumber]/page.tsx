@@ -1,0 +1,325 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { Navbar } from '@/components/Navbar';
+import { BottomNav } from '@/components/BottomNav';
+import { getChapter, getChaptersForSkandam, getSkandamMeta } from '@/data';
+import { useReadingProgress } from '@/hooks/useReadingProgress';
+import { useBookmarks } from '@/hooks/useBookmarks';
+import { useReadingSettings } from '@/hooks/useReadingSettings';
+import {
+  Bookmark as BookmarkIcon,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  List,
+  Type,
+  Check,
+  Share2,
+} from 'lucide-react';
+
+export default function ChapterReadingPage() {
+  const params = useParams();
+  const router = useRouter();
+  const skandamNum = parseInt(params.skandamNumber as string, 10);
+  const chapterNum = parseInt(params.chapterNumber as string, 10);
+
+  const skandamMeta = getSkandamMeta(skandamNum);
+  const chapter = getChapter(skandamNum, chapterNum);
+  const allChapters = getChaptersForSkandam(skandamNum);
+
+  const { saveProgress, toggleChapterComplete, isChapterCompleted } = useReadingProgress();
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { settings, cycleTextSize, getTextSizeClass } = useReadingSettings();
+
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const isCompleted = isChapterCompleted(skandamNum, chapterNum);
+  const prevChapter = allChapters.find((c) => c.chapter === chapterNum - 1);
+  const nextChapter = allChapters.find((c) => c.chapter === chapterNum + 1);
+
+  // Automatically save reading progress on mount or chapter change
+  useEffect(() => {
+    if (chapter) {
+      saveProgress(skandamNum, chapterNum);
+    }
+  }, [skandamNum, chapterNum]);
+
+  // Handle auto-scroll to verse if hash is present
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const elId = window.location.hash.replace('#', '');
+      const el = document.getElementById(elId);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+          el.classList.add('verse-highlight');
+        }, 300);
+      }
+    }
+  }, []);
+
+  if (!skandamMeta || !chapter) {
+    return (
+      <div className="min-h-screen flex flex-col bg-devotional-main">
+        <Navbar showBack backHref={`/skandam/${skandamNum}`} backLabel="അദ്ധ്യായങ്ങൾ" />
+        <main className="flex-1 max-w-xl mx-auto w-full px-4 py-12 text-center">
+          <p className="text-lg font-bold text-devotional-primary">അദ്ധ്യായം കണ്ടെത്താനായില്ല.</p>
+          <Link
+            href={`/skandam/${skandamNum}`}
+            className="mt-4 inline-block px-5 py-2.5 rounded-xl bg-devotional-accent text-white font-bold"
+          >
+            അദ്ധ്യായങ്ങളുടെ പട്ടികയിലേക്ക് മടങ്ങുക
+          </Link>
+        </main>
+        <BottomNav />
+      </div>
+    );
+  }
+
+  const handleCopyMeaning = (secId: string, text: string, verseNum: number | string) => {
+    const shareText = `ശ്രീമദ് ഭാഗവതം - സ്കന്ധം ${skandamNum}, അദ്ധ്യായം ${chapterNum}, ശ്ലോകം ${verseNum}:\n\n${text}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText);
+      setCopiedId(secId);
+      setTimeout(() => setCopiedId(null), 2000);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-devotional-main pb-24">
+      <Navbar
+        title={`${skandamMeta.shortName} • അദ്ധ്യായം ${chapterNum}`}
+        showBack
+        backHref={`/skandam/${skandamNum}`}
+        backLabel="അദ്ധ്യായങ്ങൾ"
+      />
+
+      <main className="flex-1 max-w-xl mx-auto w-full px-4 pt-3 pb-8">
+        {/* Chapter Header Card */}
+        <div className="p-4 md:p-5 mb-5 rounded-2xl bg-devotional-card border border-devotional shadow-xs">
+          <div className="flex items-center justify-between gap-2 mb-2 text-xs">
+            <span className="font-semibold text-devotional-accent bg-devotional-accent-light px-2.5 py-0.5 rounded-md">
+              {skandamMeta.shortName} ({skandamMeta.name})
+            </span>
+            <span className="font-semibold text-devotional-secondary bg-black/5 px-2.5 py-0.5 rounded-md">
+              പുസ്തകത്തിലെ പേജ്: {chapter.pageRange}
+            </span>
+          </div>
+
+          <h1 className="text-xl md:text-2xl font-extrabold text-devotional-primary leading-snug">
+            അദ്ധ്യായം {chapterNum}
+          </h1>
+          <p className="text-base md:text-lg font-medium text-devotional-secondary mt-1">
+            {chapter.title}
+          </p>
+
+          {/* Quick Reading Actions Bar */}
+          <div className="mt-4 pt-3 border-t border-devotional flex items-center justify-between gap-2">
+            {/* Mark as Completed Button */}
+            <button
+              onClick={() => toggleChapterComplete(skandamNum, chapterNum)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition active:scale-95 ${
+                isCompleted
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                  : 'bg-black/5 text-devotional-primary hover:bg-black/10'
+              }`}
+            >
+              <CheckCircle2 className={`w-4 h-4 ${isCompleted ? 'text-emerald-700' : 'text-devotional-secondary'}`} />
+              <span>{isCompleted ? 'വായിച്ചു കഴിഞ്ഞു' : 'വായിച്ചതായി അടയാളപ്പെടുത്തുക'}</span>
+            </button>
+
+            {/* Quick Text Size Toggle */}
+            <button
+              onClick={cycleTextSize}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-black/5 hover:bg-black/10 text-devotional-primary transition active:scale-95"
+            >
+              <Type className="w-3.5 h-3.5 text-devotional-accent" />
+              <span>അക്ഷരവലിപ്പം</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Note indicating only Malayalam meaning is shown */}
+        <div className="mb-4 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-devotional-secondary flex items-center justify-between">
+          <span>📖 പുസ്തകം വായിക്കുമ്പോൾ അർത്ഥം ഗ്രഹിക്കുവാനായുള്ള മലയാള വ്യാഖ്യാനം</span>
+          <span className="text-[11px] font-semibold text-devotional-accent shrink-0 ml-2">
+            {chapter.sections.length} ഭാഗങ്ങൾ
+          </span>
+        </div>
+
+        {/* Section-by-Section Malayalam Meanings */}
+        <div className="space-y-4">
+          {chapter.sections.map((sec, index) => {
+            const isSaved = isBookmarked(sec.id);
+
+            return (
+              <article
+                key={sec.id}
+                id={`section-${sec.id}`}
+                className={`verse-target relative p-5 rounded-2xl bg-devotional-card border transition-all ${
+                  isSaved
+                    ? 'border-devotional-accent/60 shadow-xs'
+                    : 'border-devotional shadow-2xs'
+                }`}
+              >
+                {/* Verse Header */}
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-devotional/60">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-devotional-accent-light text-devotional-accent font-bold text-sm tracking-wide">
+                      ശ്ലോകം {sec.number}
+                    </span>
+                    {sec.page && (
+                      <span className="text-[11px] text-devotional-secondary font-medium">
+                        പേജ് {sec.page}
+                      </span>
+                    )}
+                    {sec.notes && (
+                      <span className="text-[11px] font-semibold text-devotional-accent bg-amber-100/80 px-2 py-0.5 rounded">
+                        {sec.notes}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Action Buttons: Bookmark & Copy */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() =>
+                        toggleBookmark({
+                          id: sec.id,
+                          skandam: skandamNum,
+                          chapter: chapterNum,
+                          chapterTitle: chapter.title,
+                          sectionNumber: sec.number,
+                          meaningSnippet: sec.meaning.slice(0, 100),
+                          timestamp: Date.now(),
+                        })
+                      }
+                      className={`p-2 rounded-xl transition active:scale-95 ${
+                        isSaved
+                          ? 'bg-devotional-accent text-white'
+                          : 'text-devotional-secondary hover:text-devotional-accent hover:bg-black/5'
+                      }`}
+                      title={isSaved ? 'ബുക്ക്മാർക്ക് നീക്കം ചെയ്യുക' : 'ബുക്ക്മാർക്ക് ചെയ്യുക'}
+                      aria-label="ബുക്ക്മാർക്ക്"
+                    >
+                      <BookmarkIcon className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`} />
+                    </button>
+
+                    <button
+                      onClick={() => handleCopyMeaning(sec.id, sec.meaning, sec.number)}
+                      className="p-2 rounded-xl text-devotional-secondary hover:text-devotional-accent hover:bg-black/5 transition active:scale-95"
+                      title="പകർത്തുക"
+                      aria-label="പകർത്തുക"
+                    >
+                      {copiedId === sec.id ? (
+                        <Check className="w-4 h-4 text-emerald-600" />
+                      ) : (
+                        <Share2 className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Malayalam Meaning Text Only (Strictly No Sanskrit) */}
+                <div
+                  className={`text-devotional-primary tracking-normal font-normal ${getTextSizeClass()} ${
+                    sec.isSample ? 'italic opacity-75' : ''
+                  }`}
+                >
+                  {sec.meaning}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Bottom Chapter Completion & Navigation Bar */}
+        <div className="mt-8 pt-6 border-t border-devotional space-y-4">
+          {/* Chapter Read Status Toggle Card */}
+          <div className="p-4 rounded-xl bg-devotional-card border border-devotional flex items-center justify-between gap-3">
+            <div>
+              <div className="font-bold text-devotional-primary text-sm">
+                ഈ അദ്ധ്യായം പൂർത്തിയായെങ്കിൽ:
+              </div>
+              <div className="text-xs text-devotional-secondary">
+                വായിച്ചു കഴിഞ്ഞതായി അടയാളപ്പെടുത്താം
+              </div>
+            </div>
+
+            <button
+              onClick={() => toggleChapterComplete(skandamNum, chapterNum)}
+              className={`px-4 py-2.5 rounded-xl font-bold text-xs transition active:scale-95 flex items-center gap-1.5 ${
+                isCompleted
+                  ? 'bg-emerald-600 text-white'
+                  : 'bg-devotional-accent text-white'
+              }`}
+            >
+              <CheckCircle2 className="w-4 h-4" />
+              <span>{isCompleted ? 'വായിച്ചു കഴിഞ്ഞു ✓' : 'പൂർത്തിയായി'}</span>
+            </button>
+          </div>
+
+          {/* Previous / Next Chapter Buttons */}
+          <div className="grid grid-cols-2 gap-3">
+            {prevChapter ? (
+              <Link
+                href={`/skandam/${skandamNum}/chapter/${prevChapter.chapter}`}
+                className="flex items-center gap-2 p-3.5 rounded-xl bg-devotional-card border border-devotional text-devotional-primary hover:border-devotional-accent transition active:scale-98"
+              >
+                <ChevronLeft className="w-5 h-5 text-devotional-accent shrink-0" />
+                <div className="min-w-0 text-left">
+                  <div className="text-[11px] text-devotional-secondary font-semibold">മുൻപത്തെ അദ്ധ്യായം</div>
+                  <div className="text-xs md:text-sm font-bold truncate">അദ്ധ്യായം {prevChapter.chapter}</div>
+                </div>
+              </Link>
+            ) : (
+              <div className="p-3.5 rounded-xl bg-black/5 opacity-50 text-center flex items-center justify-center text-xs font-semibold text-devotional-secondary">
+                ആദ്യ അദ്ധ്യായം
+              </div>
+            )}
+
+            {nextChapter ? (
+              <Link
+                href={`/skandam/${skandamNum}/chapter/${nextChapter.chapter}`}
+                className="flex items-center justify-end gap-2 p-3.5 rounded-xl bg-devotional-card border border-devotional text-devotional-primary hover:border-devotional-accent transition active:scale-98 text-right"
+              >
+                <div className="min-w-0">
+                  <div className="text-[11px] text-devotional-secondary font-semibold">അടുത്ത അദ്ധ്യായം</div>
+                  <div className="text-xs md:text-sm font-bold truncate">അദ്ധ്യായം {nextChapter.chapter}</div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-devotional-accent shrink-0" />
+              </Link>
+            ) : (
+              <div className="p-3.5 rounded-xl bg-black/5 opacity-50 text-center flex items-center justify-center text-xs font-semibold text-devotional-secondary">
+                അവസാന അദ്ധ്യായം
+              </div>
+            )}
+          </div>
+
+          {/* Back to Chapters List & Home */}
+          <div className="grid grid-cols-2 gap-3 pt-2">
+            <Link
+              href={`/skandam/${skandamNum}`}
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-devotional bg-devotional-card text-devotional-primary font-bold text-xs md:text-sm hover:bg-black/5 transition active:scale-98"
+            >
+              <List className="w-4 h-4 text-devotional-accent" />
+              <span>അദ്ധ്യായങ്ങളുടെ പട്ടിക</span>
+            </Link>
+
+            <Link
+              href="/"
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-devotional bg-devotional-card text-devotional-primary font-bold text-xs md:text-sm hover:bg-black/5 transition active:scale-98"
+            >
+              <span>ഹോമിലേക്ക് മടങ്ങുക</span>
+            </Link>
+          </div>
+        </div>
+      </main>
+
+      <BottomNav />
+    </div>
+  );
+}

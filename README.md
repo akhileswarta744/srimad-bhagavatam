@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ശ്രീമദ് ഭാഗവതം (Srimad Bhagavatam) - മലയാള അർത്ഥം
 
-## Getting Started
+ഭാഗവത നിത്യപാരായണത്തിനായി തയ്യാറാക്കിയ ഒരു മൊബൈൽ-ഫസ്റ്റ് മലയാളം വെബ് ആപ്ലിക്കേഷൻ (A mobile-first Malayalam web application built for daily Srimad Bhagavatam Parayanam).
 
-First, run the development server:
+ഭൗതിക പുസ്തകം (Physical Book) വായിക്കുന്നതിനോടൊപ്പം **മലയാള അർത്ഥം മാത്രം** എളുപ്പത്തിൽ വായിച്ചു മനസ്സിലാക്കുന്നതിനായി ഇത് രൂപകൽപ്പന ചെയ്തിരിക്കുന്നു. ഇതിൽ സംസ്കൃത ശ്ലോകങ്ങൾ ഉൾപ്പെടുത്തിയിട്ടില്ല; മലയാള വ്യാഖ്യാനം മാത്രമാണ് നൽകിയിട്ടുള്ളത്.
+
+---
+
+## 🌟 പ്രധാന സവിശേഷതകൾ (Key Features)
+
+### 1. 🪷 മലയാളം ഹോം പേജ് (Malayalam Home Page)
+- സ്കന്ധം 1 മുതൽ 6 വരെയുള്ള 6 വലിയ കാർഡുകൾ.
+- ഭൗതിക പുസ്തകത്തിലെ പേജ് നമ്പരുകൾ (**പേജ് 47 മുതൽ 498 വരെ**) വ്യക്തമായി രേഖപ്പെടുത്തിയിരിക്കുന്നു.
+- **തുടർന്നു വായിക്കുക (Continue Reading)**: അവസാനം വായിച്ച സ്കന്ധവും അദ്ധ്യായവും ഓർമ്മിച്ചുവെച്ച് ഒറ്റ ടാപ്പിൽ വായന തുടരാനുള്ള സൗകര്യം.
+
+### 2. 📖 സ്കന്ധം & അദ്ധ്യായങ്ങൾ (Skandams & Chapters)
+- 1 മുതൽ 6 വരെയുള്ള സ്കന്ധങ്ങളിലെ **145 അദ്ധ്യായങ്ങളും** പേജ് നമ്പരുകൾ സഹിതം ഉൾപ്പെടുത്തിയിരിക്കുന്നു:
+  - **സ്കന്ധം 1 (പ്രഥമ സ്കന്ധം)**: പേജ് 47–110 (19 അദ്ധ്യായങ്ങൾ)
+  - **സ്കന്ധം 2 (ദ്വിതീയ സ്കന്ധം)**: പേജ് 111–142 (10 അദ്ധ്യായങ്ങൾ)
+  - **സ്കന്ധം 3 (തൃതീയ സ്കന്ധം)**: പേജ് 143–251 (33 അദ്ധ്യായങ്ങൾ)
+  - **സ്കന്ധം 4 (ചതുർത്ഥ സ്കന്ധം)**: പേജ് 252–358 (31 അദ്ധ്യായങ്ങൾ)
+  - **സ്കന്ധം 5 (പഞ്ചമ സ്കന്ധം)**: പേജ് 359–425 (26 അദ്ധ്യായങ്ങൾ)
+  - **സ്കന്ധം 6 (ഷഷ്ഠ സ്കന്ധം)**: പേജ് 426–498 (26 അദ്ധ്യായങ്ങൾ)
+
+### 3. 📜 ശ്ലോകാർത്ഥ വായന (Section-by-Section Meaning)
+- **ശ്ലോകം 1, ശ്ലോകം 2...** എന്നിങ്ങനെ ക്രമമായി മലയാള അർത്ഥം മാത്രം പ്രദർശിപ്പിക്കുന്നു.
+- പ്രായമായവർക്കും കണ്ണിന് ആയാസമില്ലാതെ വായിക്കാൻ കഴിയുന്ന വലിയ അക്ഷരങ്ങളും സൗകര്യപ്രദമായ അകലവും (`leading-loose`).
+- **അക്ഷര വലിപ്പം (Font Size)**: ഒറ്റ ടാപ്പിൽ **A** (സാധാരണ), **A+** (വലുത്), **A++** (വളരെ വലുത്) ആയി മാറ്റാം.
+- **തീം മോഡുകൾ**:
+  - ചന്ദനം (Sandalwood / പരമ്പരാഗത നിറം)
+  - ക്രീം (Cream)
+  - രാത്രി (Night Mode / രാത്രിയിലോ വെളുപ്പിനെയോ ഉള്ള പാരായണത്തിന്)
+- **മുൻപത്തെ / അടുത്ത അദ്ധ്യായങ്ങളിലേക്ക്** എളുപ്പത്തിൽ മാറാനുള്ള ബട്ടണുകൾ.
+- ഓരോ അദ്ധ്യായവും **വായിച്ചു കഴിഞ്ഞതായി അടയാളപ്പെടുത്താനുള്ള (Mark as Read)** സൗകര്യം.
+
+### 4. 🔍 മലയാളം തിരച്ചിൽ (Full-Text Malayalam Search)
+- മലയാള അർത്ഥങ്ങളിലൂടെ പൂർണ്ണമായ തിരച്ചിൽ (ഉദാഹരണത്തിന്: **"അജാമിളൻ"**, **"സൂതൻ"**, **"പരീക്ഷിത്ത്"**, **"ധ്രുവൻ"**).
+- കണ്ടെത്തിയ ഫലങ്ങളിൽ വാക്ക് ഹൈലൈറ്റ് ചെയ്തു കാണിക്കുകയും, ആ ശ്ലോകത്തിലേക്ക് നേരിട്ട് പോകാൻ സാധിക്കുകയും ചെയ്യുന്നു.
+
+### 5. 🔖 ബുക്ക്മാർക്കുകൾ (Bookmarks)
+- ഇഷ്ടപ്പെട്ടതോ അടയാളപ്പെടുത്തേണ്ടതോ ആയ ശ്ലോകങ്ങൾ ബുക്ക്മാർക്ക് ചെയ്യാം.
+- ബ്രൗസറിന്റെ `localStorage`-ൽ സുരക്ഷിതമായി സൂക്ഷിക്കപ്പെടുന്നതിനാൽ വീണ്ടും തുറക്കുമ്പോൾ ലഭ്യമാകും.
+
+### 6. 📱 മൊബൈൽ അനുയോജ്യം (Mobile First / PWA Ready)
+- ആൻഡ്രോയിഡ് ഫോണുകൾക്ക് പൂർണ്ണമായും അനുയോജ്യമായ വലിയ ടച്ച് ടാർഗെറ്റുകൾ.
+- ഫോണിലെ ബ്രൗസറിൽ നിന്ന് **"Add to Home Screen"** വഴി ആപ്പ് ഐക്കണായി ഇൻസ്റ്റാൾ ചെയ്യാം.
+
+---
+
+## 🚀 സാങ്കേതിക വിവരങ്ങൾ (Tech Stack)
+
+- **Framework**: [Next.js](https://nextjs.org/) 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Storage**: Browser `localStorage` (ലോഗിൻ ആവശ്യമില്ല, പൂർണ്ണമായും സ്വകാര്യം)
+
+---
+
+## 💻 പ്രാദേശികമായി പ്രവർത്തിപ്പിക്കാൻ (Running Locally)
 
 ```bash
+# 1. പ്രൊജക്റ്റ് ക്ലോൺ ചെയ്യുക
+git clone <your-repository-url>
+cd srimad-bhagavatam
+
+# 2. ഡിപെൻഡൻസികൾ ഇൻസ്റ്റാൾ ചെയ്യുക
+npm install
+
+# 3. ഡെവലപ്‌മെന്റ് സെർവർ പ്രവർത്തിപ്പിക്കുക
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 4. ബ്രൗസറിൽ തുറക്കുക
+http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌐 വിന്യസിക്കാൻ (Deployment)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ഏറ്റവും എളുപ്പത്തിൽ [Vercel](https://vercel.com/)-ൽ ഡിപ്ലോയ് ചെയ്യാം:
+1. GitHub-ലേക്ക് പ്രൊജക്റ്റ് പുഷ് ചെയ്യുക.
+2. Vercel-ൽ പോയി GitHub റിപ്പോസിറ്ററി ഇംപോർട്ട് ചെയ്യുക.
+3. യാതൊരു അധിക കോൺഫിഗറേഷനും ഇല്ലാതെ തത്സമയം ലൈവാകും!
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 ഉള്ളടക്ക ഘടന (Adding More Chapter Meanings)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+പുതിയ അദ്ധ്യായങ്ങളുടെ മലയാള അർത്ഥങ്ങൾ ചേർക്കാൻ `src/data/` ഡയറക്ടറി ഉപയോഗിക്കുക:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/data/
+├── types.ts                     # ഡാറ്റാ ടൈപ്പുകൾ
+├── metadata.ts                  # സ്കന്ധങ്ങളും അദ്ധ്യായങ്ങളുടെ പേജുകളും
+├── skandams/
+│   ├── skandam-1/
+│   │   ├── chapter-1.ts         # ശ്ലോകം തിരിച്ചുള്ള മലയാള അർത്ഥങ്ങൾ
+│   │   └── chapter-2.ts
+│   ├── skandam-2/
+│   └── ...
+└── index.ts                     # സെർച്ച് & ഡാറ്റാ ലോഡർ
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ഓരോ അദ്ധ്യായത്തിന്റെയും ഡാറ്റ ഘടന:
+```typescript
+export const chapter1: Chapter = {
+  skandam: 1,
+  chapter: 1,
+  title: "നൈമിഷാരണ്യത്തിലെ മുനിമാരുടെ ചോദ്യങ്ങൾ",
+  pageRange: "47–51",
+  totalVerses: 23,
+  sections: [
+    {
+      id: "1-1-1",
+      number: 1,
+      page: 47,
+      meaning: "ഈ പ്രപഞ്ചത്തിന്റെ സൃഷ്ടിസ്ഥിതിസംഹാരങ്ങൾക്ക് കാരണഭൂതനായ..."
+    }
+  ]
+};
+```

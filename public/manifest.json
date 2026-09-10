@@ -1,0 +1,16 @@
+{
+  "name": "ശ്രീമദ് ഭാഗവതം",
+  "short_name": "ഭാഗവതം",
+  "description": "ശ്രീമദ് ഭാഗവതം നിത്യപാരായണത്തിനായുള്ള മലയാള അർത്ഥം",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF7EE",
+  "theme_color": "#B85304",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

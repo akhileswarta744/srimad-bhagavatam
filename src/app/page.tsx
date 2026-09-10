@@ -1,69 +1,186 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React from 'react';
+import Link from 'next/link';
+import { Navbar } from '@/components/Navbar';
+import { BottomNav } from '@/components/BottomNav';
+import { getAllSkandams, getChapter } from '@/data';
+import { useReadingProgress } from '@/hooks/useReadingProgress';
+import { BookOpen, ChevronRight, Bookmark, Search, CheckCircle2 } from 'lucide-react';
+
+export default function HomePage() {
+  const skandams = getAllSkandams();
+  const { progress, isLoaded } = useReadingProgress();
+
+  const lastRead = progress.lastRead;
+  let lastReadChapterTitle = '';
+  if (lastRead) {
+    const chapterData = getChapter(lastRead.skandam, lastRead.chapter);
+    if (chapterData) {
+      lastReadChapterTitle = chapterData.title;
+    }
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="min-h-screen flex flex-col bg-devotional-main pb-24">
+      <Navbar />
+
+      <main className="flex-1 max-w-xl mx-auto w-full px-4 pt-4 pb-8">
+        {/* Sacred Header Banner */}
+        <div className="text-center py-6 px-4 mb-4 rounded-2xl bg-devotional-card border border-devotional shadow-xs">
+          <div className="text-3xl mb-2 select-none">ॐ ശ്രീമഹാഭാഗവതായ നമഃ ॐ</div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-devotional-primary tracking-tight mb-2">
+            ശ്രീമദ് ഭാഗവതം
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-devotional-secondary text-sm md:text-base leading-relaxed">
+            നിത്യപാരായണത്തിനായുള്ള മലയാള അർത്ഥം
           </p>
+          <div className="mt-2 inline-flex items-center gap-1.5 text-xs text-devotional-accent font-semibold bg-devotional-accent-light px-3 py-1 rounded-full">
+            <span>പ്രഥമ സ്കന്ധം മുതൽ ഷഷ്ഠ സ്കന്ധം വരെ (പേജ് 47–498)</span>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Continue Reading Card (തുടർന്നു വായിക്കുക) - Shows only if history exists */}
+        {isLoaded && lastRead && (
+          <div className="mb-6 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/70 border-2 border-devotional-accent/40 p-5 shadow-xs transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-devotional-accent flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-devotional-accent animate-pulse" />
+                തുടർന്നു വായിക്കുക
+              </span>
+              <span className="text-xs text-devotional-secondary">
+                അവസാനം വായിച്ചത്
+              </span>
+            </div>
+
+            <div className="my-2">
+              <div className="text-lg md:text-xl font-bold text-devotional-primary">
+                സ്കന്ധം {lastRead.skandam} • അദ്ധ്യായം {lastRead.chapter}
+              </div>
+              {lastReadChapterTitle && (
+                <div className="text-sm text-devotional-secondary mt-0.5 line-clamp-1">
+                  {lastReadChapterTitle}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href={`/skandam/${lastRead.skandam}/chapter/${lastRead.chapter}${
+                lastRead.sectionId ? `#section-${lastRead.sectionId}` : ''
+              }`}
+              className="mt-3 inline-flex items-center justify-center w-full py-3 px-5 rounded-xl bg-devotional-accent text-white font-bold text-base shadow-sm active:scale-[0.99] hover:opacity-95 transition"
+            >
+              <span>തുടരുക</span>
+              <ChevronRight className="w-5 h-5 ml-1" />
+            </Link>
+          </div>
+        )}
+
+        {/* Quick Search & Bookmarks Bar */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <Link
+            href="/search"
+            className="flex items-center gap-3 p-3.5 rounded-xl bg-devotional-card border border-devotional shadow-2xs hover:bg-black/5 transition active:scale-98"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div className="p-2 rounded-lg bg-devotional-accent-light text-devotional-accent">
+              <Search className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="font-bold text-devotional-primary text-sm">തിരയുക</div>
+              <div className="text-xs text-devotional-secondary">വാക്കുകൾ കണ്ടെത്താം</div>
+            </div>
+          </Link>
+
+          <Link
+            href="/bookmarks"
+            className="flex items-center gap-3 p-3.5 rounded-xl bg-devotional-card border border-devotional shadow-2xs hover:bg-black/5 transition active:scale-98"
           >
-            Documentation
-          </a>
+            <div className="p-2 rounded-lg bg-devotional-accent-light text-devotional-accent">
+              <Bookmark className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="font-bold text-devotional-primary text-sm">ബുക്ക്മാർക്കുകൾ</div>
+              <div className="text-xs text-devotional-secondary">അടയാളപ്പെടുത്തിയവ</div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Skandams Section Header */}
+        <div id="skandams" className="flex items-center justify-between mb-3 px-1">
+          <h2 className="text-lg font-bold text-devotional-primary flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-devotional-accent" />
+            <span>സ്കന്ധങ്ങൾ (1 മുതൽ 6 വരെ)</span>
+          </h2>
+          <span className="text-xs text-devotional-secondary font-medium">
+            ആകെ 6 സ്കന്ധങ്ങൾ
+          </span>
+        </div>
+
+        {/* 6 Large Easy-to-Tap Skandam Cards */}
+        <div className="space-y-3.5">
+          {skandams.map((skandam) => {
+            // Count completed chapters in this skandam
+            const completedInSkandam = Object.keys(progress.completedChapters || {}).filter(
+              (key) => key.startsWith(`${skandam.number}-`) && progress.completedChapters[key]
+            ).length;
+
+            return (
+              <Link
+                key={skandam.number}
+                href={`/skandam/${skandam.number}`}
+                className="group block p-4 md:p-5 rounded-2xl bg-devotional-card border border-devotional shadow-xs hover:border-devotional-accent hover:shadow-md transition-all active:scale-[0.99]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-devotional-accent text-white text-xs font-bold">
+                        {skandam.number}
+                      </span>
+                      <h3 className="text-xl font-bold text-devotional-primary group-hover:text-devotional-accent transition-colors">
+                        {skandam.shortName}
+                      </h3>
+                      {skandam.subTitle && (
+                        <span className="text-xs px-2 py-0.5 rounded-md bg-devotional-accent-light text-devotional-accent font-medium">
+                          {skandam.subTitle}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="mt-1 text-sm font-semibold text-devotional-secondary">
+                      {skandam.name}
+                    </div>
+
+                    <p className="mt-1.5 text-xs text-devotional-secondary line-clamp-2 leading-relaxed">
+                      {skandam.description}
+                    </p>
+
+                    <div className="mt-3 flex items-center gap-3 text-xs text-devotional-secondary">
+                      <span className="font-medium bg-black/5 px-2.5 py-1 rounded-md">
+                        {skandam.chapterCount} അദ്ധ്യായങ്ങൾ
+                      </span>
+                      <span className="font-medium bg-black/5 px-2.5 py-1 rounded-md">
+                        {skandam.pageRange}
+                      </span>
+                      {completedInSkandam > 0 && (
+                        <span className="inline-flex items-center gap-1 text-emerald-700 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          {completedInSkandam} വായിച്ചു
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="self-center p-2 rounded-xl bg-black/5 group-hover:bg-devotional-accent group-hover:text-white transition-colors">
+                    <ChevronRight className="w-5 h-5" />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </main>
+
+      <BottomNav />
     </div>
   );
 }
