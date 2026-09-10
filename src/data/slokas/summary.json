@@ -88,27 +88,27 @@
       "chapters": {
         "1": {
           "verseCount": 39,
-          "malayalamVerseCount": 3
+          "malayalamVerseCount": 39
         },
         "2": {
           "verseCount": 37,
-          "malayalamVerseCount": 2
+          "malayalamVerseCount": 37
         },
         "3": {
           "verseCount": 25,
-          "malayalamVerseCount": 3
+          "malayalamVerseCount": 25
         },
         "4": {
           "verseCount": 25,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 25
         },
         "5": {
           "verseCount": 42,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 42
         },
         "6": {
           "verseCount": 45,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 45
         },
         "7": {
           "verseCount": 53,
@@ -128,7 +128,7 @@
         }
       },
       "totalVerses": 391,
-      "totalMalayalamAuthored": 14
+      "totalMalayalamAuthored": 219
     },
     "3": {
       "chapters": {
@@ -1415,5 +1415,5 @@
       "totalMalayalamAuthored": 0
     }
   },
-  "totalMalayalamAuthored": 859
+  "totalMalayalamAuthored": 1064
 }
