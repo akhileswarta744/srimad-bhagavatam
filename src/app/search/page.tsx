@@ -9,8 +9,6 @@ import { SearchResult } from '@/data/types';
 import { Search as SearchIcon, X, ChevronRight, BookOpen, AlertCircle, Filter } from 'lucide-react';
 
 const SUGGESTED_SEARCHES = [
-  'जन्माद्यस्य',
-  'सत्यं परं धीमहि',
   'അജാമിളൻ',
   'പരീക്ഷിത്ത്',
   'നാരായണ',
@@ -19,6 +17,8 @@ const SUGGESTED_SEARCHES = [
   'ധ്രുവൻ',
   'ശ്രീകൃഷ്ണൻ',
   'ബ്രഹ്മാവ്',
+  'വൃത്രാസുരൻ',
+  'കുചേലൻ',
 ];
 
 export default function SearchPage() {
@@ -96,7 +96,7 @@ export default function SearchPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="ശ്ലോകം നമ്പർ / സംസ്കൃതം / മലയാളം... (ഉദാ: 1, അജാമിളൻ)"
+            placeholder="മലയാള അർത്ഥങ്ങളിൽ തിരയുക... (ഉദാ: അജാമിളൻ, പ്രഹ്ലാദൻ)"
             className="w-full pl-11 pr-10 py-3.5 rounded-2xl bg-devotional-card border-2 border-devotional focus:border-devotional-accent outline-hidden text-base md:text-lg text-devotional-primary placeholder:text-devotional-secondary/60 shadow-xs"
             autoFocus
           />
@@ -228,13 +228,6 @@ export default function SearchPage() {
                 <div className="text-xs font-bold text-devotional-primary mb-1">
                   {res.chapterTitle}
                 </div>
-
-                {/* Show Sanskrit snippet if matched or available */}
-                {res.sanskrit && (
-                  <div className="text-xs font-serif text-devotional-primary/90 bg-amber-50/50 p-2 rounded-lg mb-1.5 border border-amber-200/50 line-clamp-2">
-                    {renderHighlightedSnippet(res.sanskrit, query)}
-                  </div>
-                )}
 
                 {/* Show Malayalam meaning snippet */}
                 {res.meaning && (

@@ -180,8 +180,7 @@ export default function ChapterReadingPage() {
       '',
     ];
     if (sec.speaker) lines.push(`[${sec.speaker}]`);
-    if (sec.sanskrit) lines.push(sec.sanskrit, '');
-    if (sec.meaning) lines.push('അർത്ഥം:', sec.meaning);
+    if (sec.meaning) lines.push(sec.meaning);
 
     const shareText = lines.join('\n');
     if (navigator.clipboard) {
@@ -192,7 +191,7 @@ export default function ChapterReadingPage() {
   };
 
   const handleShare = async (sec: Section) => {
-    const shareText = `${sec.sanskrit ? sec.sanskrit + '\n\n' : ''}${sec.meaning ? 'അർത്ഥം: ' + sec.meaning : ''}`;
+    const shareText = sec.meaning || '';
     const shareTitle = `ശ്രീമദ് ഭാഗവതം ${skandamNum}.${chapterNum}.${sec.number}`;
 
     if (navigator.share) {
@@ -465,7 +464,7 @@ export default function ChapterReadingPage() {
                         if (isBeingSpoken) {
                           stopSpeech();
                         } else {
-                          const textToSpeak = sec.meaning || sec.sanskrit || '';
+                          const textToSpeak = sec.meaning || '';
                           speakSection(sec.id, textToSpeak);
                         }
                       }}
@@ -474,7 +473,7 @@ export default function ChapterReadingPage() {
                           ? 'bg-devotional-accent text-white'
                           : 'text-devotional-secondary hover:text-devotional-accent hover:bg-black/5'
                       }`}
-                      title="ഈ ശ്ലോകം കേൾക്കുക"
+                      title="ഈ ഭാഗം കേൾക്കുക"
                       aria-label="ശ്രവിക്കുക"
                     >
                       <Volume2 className="w-4 h-4" />
@@ -490,8 +489,8 @@ export default function ChapterReadingPage() {
                           chapterTitle: chapter.title,
                           sectionNumber: sec.number,
                           slokaNumber: typeof sec.number === 'number' ? sec.number : parseInt(String(sec.number), 10),
-                          meaningSnippet: sec.meaning ? sec.meaning.slice(0, 100) : '',
-                          sanskritSnippet: sec.sanskrit ? sec.sanskrit.slice(0, 100) : '',
+                          meaningSnippet: sec.meaning ? sec.meaning.slice(0, 120) : '',
+                          sanskritSnippet: '',
                           timestamp: Date.now(),
                         })
                       }
@@ -522,21 +521,9 @@ export default function ChapterReadingPage() {
                   </div>
                 </div>
 
-                {/* Original Sanskrit Verse Block */}
-                {sec.sanskrit && (
-                  <div className="mb-3.5 p-3.5 rounded-xl bg-amber-50/50 border border-amber-200/50">
-                    <p className="font-serif text-devotional-primary text-base md:text-lg leading-relaxed whitespace-pre-line tracking-wide select-text">
-                      {sec.sanskrit}
-                    </p>
-                  </div>
-                )}
-
                 {/* Malayalam Meaning Block */}
                 {sec.meaning && sec.meaning.trim().length > 0 ? (
-                  <div className="mt-2">
-                    <div className="text-[11px] font-bold text-devotional-secondary uppercase tracking-wider mb-1">
-                      അർത്ഥം
-                    </div>
+                  <div className="mt-1">
                     <p
                       className={`text-devotional-primary font-normal leading-relaxed tracking-normal ${getTextSizeClass()}`}
                     >
@@ -545,7 +532,7 @@ export default function ChapterReadingPage() {
                   </div>
                 ) : (
                   <div className="mt-2 text-xs text-devotional-secondary/70 italic bg-black/5 px-3 py-2 rounded-lg">
-                    ഈ ശ്ലോകത്തിന്റെ ആധികാരിക മലയാള അർത്ഥം ചേർക്കുവാനായി മുകളിലെ തിരുത്തൽ സൗകര്യം ഉപയോഗിക്കാവുന്നതാണ്.
+                    ഈ ഭാഗത്തിന്റെ ആധികാരിക മലയാള അർത്ഥം ഉടൻ ലഭ്യമാക്കുന്നതാണ്.
                   </div>
                 )}
               </article>

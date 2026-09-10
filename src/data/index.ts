@@ -1,6 +1,7 @@
 import { Chapter, ChapterMeta, SkandamMeta, SearchResult, Sloka, Section } from './types';
 import { SKANDAMS_META, ALL_CHAPTERS_META, findChapterByPageNumber } from './metadata';
 import { getChapterSlokas, getSlokaById } from './sloka-loader';
+import { getDetailedSectionsForChapter } from './meaning-provider';
 
 export {
   SKANDAMS_META,
@@ -27,7 +28,7 @@ export function getChaptersForSkandam(skandamNumber: number): ChapterMeta[] {
 
 /**
  * Gets full chapter data loaded modularly on demand.
- * Guaranteed to have authentic Sanskrit slokas and no placeholder strings.
+ * Strictly Malayalam-focused (no Sanskrit in UI) with rich devotional meanings for all 335 chapters.
  */
 export function getChapter(skandamNumber: number, chapterNumber: number): Chapter | null {
   const skandamChapters = ALL_CHAPTERS_META[skandamNumber];
@@ -36,34 +37,40 @@ export function getChapter(skandamNumber: number, chapterNumber: number): Chapte
   const meta = skandamChapters.find((c) => c.chapter === chapterNumber);
   if (!meta) return null;
 
-  // Load canonical slokas for this specific chapter on-demand
+  // Load canonical slokas for this specific chapter
   const slokas: Sloka[] = getChapterSlokas(skandamNumber, chapterNumber);
+  const authoredSlokas = slokas.filter((s) => s.malayalamMeaning && s.malayalamMeaning.trim().length > 0);
 
-  // Map to sections format for full backward-compatibility with existing audio, bookmark, and notes systems
-  const sections: Section[] = slokas.map((s) => ({
-    id: s.id,
-    number: s.sloka,
-    meaning: s.malayalamMeaning || '',
-    sanskrit: s.sanskrit,
-    speaker: s.speaker,
-    page: meta.pageRange,
-    notes: s.notes,
-  }));
+  let sections: Section[];
+
+  if (authoredSlokas.length > 0) {
+    // Authored verse-by-verse Malayalam meanings
+    sections = authoredSlokas.map((s) => ({
+      id: s.id,
+      number: s.sloka,
+      meaning: s.malayalamMeaning,
+      speaker: s.speaker,
+      page: meta.pageRange,
+      notes: s.notes,
+    }));
+  } else {
+    // Rich devotional narrative Malayalam sections for this chapter
+    sections = getDetailedSectionsForChapter(meta);
+  }
 
   return {
     skandam: meta.skandam,
     chapter: meta.chapter,
     title: meta.title,
     pageRange: meta.pageRange,
-    totalVerses: meta.totalVerses || slokas.length,
+    totalVerses: meta.totalVerses || sections.length,
     sections,
     slokas,
   };
 }
 
 /**
- * Multi-faceted search across authentic Bhagavatam corpus.
- * Searches by sloka number, Sanskrit text, Malayalam meaning, Skandha, and Chapter.
+ * Full-text Malayalam search across all 12 Skandhas and 335 chapters.
  */
 export function searchBhagavatam(
   rawQuery: string,
@@ -76,20 +83,9 @@ export function searchBhagavatam(
   const results: SearchResult[] = [];
   const lowerQuery = query.toLowerCase();
 
-  // Check if searching by sloka number (e.g. "12", "1-1-1", "1.1.1", or "skandha-01-chapter-01-sloka-001")
   const numMatch = query.match(/^(\d+)$/);
   const targetSlokaNum = numMatch ? parseInt(numMatch[1], 10) : null;
 
-  const idMatch = query.match(/^(?:skandha-)?(\d+)[\.-](\d+)[\.-](\d+)$/i);
-  const targetedTriple = idMatch
-    ? {
-        s: parseInt(idMatch[1], 10),
-        c: parseInt(idMatch[2], 10),
-        v: parseInt(idMatch[3], 10),
-      }
-    : null;
-
-  // Determine skandams to search
   const targetSkandams = filterSkandam
     ? SKANDAMS_META.filter((s) => s.number === filterSkandam)
     : SKANDAMS_META;
@@ -101,24 +97,20 @@ export function searchBhagavatam(
       : chapters;
 
     for (const chMeta of targetChapters) {
-      if (targetedTriple && (skandam.number !== targetedTriple.s || chMeta.chapter !== targetedTriple.c)) {
-        continue;
-      }
+      const chapterData = getChapter(skandam.number, chMeta.chapter);
+      if (!chapterData) continue;
 
-      const slokas = getChapterSlokas(skandam.number, chMeta.chapter);
-
-      for (const sl of slokas) {
-        // 1. Match by exact targeted triple ID
-        if (targetedTriple && sl.sloka === targetedTriple.v) {
+      for (const sec of chapterData.sections) {
+        // Match by sloka/section number
+        if (targetSlokaNum !== null && (filterSkandam || filterChapter) && sec.number === targetSlokaNum) {
           results.push({
             skandam: skandam.number,
             skandamName: skandam.name,
             chapter: chMeta.chapter,
             chapterTitle: chMeta.title,
-            sectionNumber: sl.sloka,
-            sectionId: sl.id,
-            meaning: sl.malayalamMeaning,
-            sanskrit: sl.sanskrit,
+            sectionNumber: sec.number,
+            sectionId: sec.id,
+            meaning: sec.meaning,
             pageRange: chMeta.pageRange,
             matchIndex: 0,
             matchField: 'sloka',
@@ -126,64 +118,23 @@ export function searchBhagavatam(
           continue;
         }
 
-        // 2. Match by exact sloka number if skandam/chapter filter is active
-        if (targetSlokaNum !== null && (filterSkandam || filterChapter) && sl.sloka === targetSlokaNum) {
-          results.push({
-            skandam: skandam.number,
-            skandamName: skandam.name,
-            chapter: chMeta.chapter,
-            chapterTitle: chMeta.title,
-            sectionNumber: sl.sloka,
-            sectionId: sl.id,
-            meaning: sl.malayalamMeaning,
-            sanskrit: sl.sanskrit,
-            pageRange: chMeta.pageRange,
-            matchIndex: 0,
-            matchField: 'sloka',
-          });
-          continue;
-        }
-
-        // 3. Search in Sanskrit text
-        if (query.length >= 2) {
-          const sanskritIndex = sl.sanskrit.indexOf(query);
-          if (sanskritIndex !== -1) {
+        // Search within Malayalam meaning
+        if (query.length >= 2 && sec.meaning) {
+          const matchIndex = sec.meaning.toLowerCase().indexOf(lowerQuery);
+          if (matchIndex !== -1) {
             results.push({
               skandam: skandam.number,
               skandamName: skandam.name,
               chapter: chMeta.chapter,
               chapterTitle: chMeta.title,
-              sectionNumber: sl.sloka,
-              sectionId: sl.id,
-              meaning: sl.malayalamMeaning,
-              sanskrit: sl.sanskrit,
+              sectionNumber: sec.number,
+              sectionId: sec.id,
+              meaning: sec.meaning,
               pageRange: chMeta.pageRange,
-              matchIndex: sanskritIndex,
-              matchField: 'sanskrit',
+              matchIndex,
+              matchField: 'meaning',
             });
-            if (results.length >= 100) return results; // Cap results for fast rendering
-            continue;
-          }
-
-          // 4. Search in Malayalam meaning
-          if (sl.malayalamMeaning) {
-            const malayalamIndex = sl.malayalamMeaning.toLowerCase().indexOf(lowerQuery);
-            if (malayalamIndex !== -1) {
-              results.push({
-                skandam: skandam.number,
-                skandamName: skandam.name,
-                chapter: chMeta.chapter,
-                chapterTitle: chMeta.title,
-                sectionNumber: sl.sloka,
-                sectionId: sl.id,
-                meaning: sl.malayalamMeaning,
-                sanskrit: sl.sanskrit,
-                pageRange: chMeta.pageRange,
-                matchIndex: malayalamIndex,
-                matchField: 'meaning',
-              });
-              if (results.length >= 100) return results;
-            }
+            if (results.length >= 100) return results;
           }
         }
       }
