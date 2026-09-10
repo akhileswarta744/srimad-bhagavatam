@@ -480,3 +480,44 @@ export const ALL_CHAPTERS_META: Record<number, ChapterMeta[]> = {
     { skandam: 12, chapter: 13, title: "ഭാഗവത മാഹാത്മ്യവും സമാപ്തി പ്രാർത്ഥനയും", pageRange: "ദ്വാദശ സ്കന്ധം" }
   ]
 };
+
+// Helper function to find matching chapter by physical book page number
+export function findChapterByPageNumber(pageNum: number): {
+  skandam: number;
+  chapter: number;
+  title: string;
+  pageRange: string;
+} | null {
+  if (pageNum < 47 || isNaN(pageNum)) return null;
+
+  for (let s = 1; s <= 6; s++) {
+    const chapters = ALL_CHAPTERS_META[s] || [];
+    for (const ch of chapters) {
+      const match = ch.pageRange.match(/([0-9]+)[–\-]([0-9]+)/);
+      if (match) {
+        const start = parseInt(match[1], 10);
+        const end = parseInt(match[2], 10);
+        if (pageNum >= start && pageNum <= end) {
+          return {
+            skandam: ch.skandam,
+            chapter: ch.chapter,
+            title: ch.title,
+            pageRange: ch.pageRange,
+          };
+        }
+      }
+    }
+  }
+
+  // Fallback boundary match
+  if (pageNum > 498) {
+    return {
+      skandam: 6,
+      chapter: 26,
+      title: "ഷഷ്ഠസ്കന്ധ സമാപ്തി",
+      pageRange: "497–498",
+    };
+  }
+
+  return null;
+}

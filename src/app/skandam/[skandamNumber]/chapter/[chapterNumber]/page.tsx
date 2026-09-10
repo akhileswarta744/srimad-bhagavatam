@@ -10,6 +10,10 @@ import { useReadingProgress } from '@/hooks/useReadingProgress';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { useReadingSettings } from '@/hooks/useReadingSettings';
 import { useCustomContent } from '@/hooks/useCustomContent';
+import { useWakeLock } from '@/hooks/useWakeLock';
+import { useAutoScroll, ScrollSpeed } from '@/hooks/useAutoScroll';
+import { useMalayalamSpeech } from '@/hooks/useMalayalamSpeech';
+import { ParayanamDiaryModal } from '@/components/ParayanamDiaryModal';
 import { Section } from '@/data/types';
 import {
   Bookmark as BookmarkIcon,
@@ -25,6 +29,13 @@ import {
   Plus,
   Trash2,
   Download,
+  Volume2,
+  VolumeX,
+  Play,
+  Pause,
+  Sun,
+  FileText,
+  Sparkles,
 } from 'lucide-react';
 
 export default function ChapterReadingPage() {
@@ -42,8 +53,23 @@ export default function ChapterReadingPage() {
   const { settings, cycleTextSize, getTextSizeClass } = useReadingSettings();
   const { customSections, saveCustomSections, resetToDefault } = useCustomContent(skandamNum, chapterNum);
 
+  // New Upgrade Hooks
+  const { isLocked: isScreenAwake } = useWakeLock(true);
+  const { isScrolling, speed, setSpeed, toggleAutoScroll, stopScrolling } = useAutoScroll();
+  const {
+    isSpeaking,
+    isPaused: isSpeechPaused,
+    currentSectionId,
+    speakSection,
+    speakChapter,
+    pause: pauseSpeech,
+    resume: resumeSpeech,
+    stop: stopSpeech,
+  } = useMalayalamSpeech();
+
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isDiaryOpen, setIsDiaryOpen] = useState(false);
   const [editableSections, setEditableSections] = useState<Section[]>([]);
   const [newMeaning, setNewMeaning] = useState('');
   const [newVerseNum, setNewVerseNum] = useState<number>(1);
@@ -70,6 +96,14 @@ export default function ChapterReadingPage() {
       saveProgress(skandamNum, chapterNum);
     }
   }, [skandamNum, chapterNum]);
+
+  // Stop speech and autoscroll on navigation
+  useEffect(() => {
+    return () => {
+      stopSpeech();
+      stopScrolling();
+    };
+  }, [chapterNum, skandamNum]);
 
   // Handle auto-scroll to verse if hash is present
   useEffect(() => {
@@ -137,7 +171,6 @@ export default function ChapterReadingPage() {
 
   const handleBulkImport = () => {
     if (!bulkInput.trim()) return;
-    // Parse numbered lines or split paragraphs
     const lines = bulkInput.split('\n').filter((l) => l.trim().length > 0);
     const parsed: Section[] = [];
     let currentNum = 1;
@@ -189,7 +222,7 @@ export default function ChapterReadingPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-devotional-main pb-24">
+    <div className="min-h-screen flex flex-col bg-devotional-main pb-28">
       <Navbar
         title={`${skandamMeta.shortName} • അദ്ധ്യായം ${chapterNum}`}
         showBack
@@ -199,14 +232,22 @@ export default function ChapterReadingPage() {
 
       <main className="flex-1 max-w-xl mx-auto w-full px-4 pt-3 pb-8">
         {/* Chapter Header Card */}
-        <div className="p-4 md:p-5 mb-5 rounded-2xl bg-devotional-card border border-devotional shadow-xs">
-          <div className="flex items-center justify-between gap-2 mb-2 text-xs">
+        <div className="p-4 md:p-5 mb-4 rounded-2xl bg-devotional-card border border-devotional shadow-xs">
+          <div className="flex items-center justify-between gap-2 mb-2 text-xs flex-wrap">
             <span className="font-semibold text-devotional-accent bg-devotional-accent-light px-2.5 py-0.5 rounded-md">
               {skandamMeta.shortName} ({skandamMeta.name})
             </span>
-            <span className="font-semibold text-devotional-secondary bg-black/5 px-2.5 py-0.5 rounded-md">
-              പുസ്തകത്തിലെ പേജ്: {chapter.pageRange}
-            </span>
+            <div className="flex items-center gap-1.5">
+              {isScreenAwake && (
+                <span className="text-[11px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                  <Sun className="w-3 h-3 text-amber-600" />
+                  <span>സ്ക്രീൻ ഓൺ</span>
+                </span>
+              )}
+              <span className="font-semibold text-devotional-secondary bg-black/5 px-2.5 py-0.5 rounded-md">
+                പുസ്തകത്തിലെ പേജ്: {chapter.pageRange}
+              </span>
+            </div>
           </div>
 
           <h1 className="text-xl md:text-2xl font-extrabold text-devotional-primary leading-snug">
@@ -216,8 +257,49 @@ export default function ChapterReadingPage() {
             {chapter.title}
           </p>
 
-          {/* Quick Reading Actions Bar */}
-          <div className="mt-4 pt-3 border-t border-devotional flex items-center justify-between gap-2">
+          {/* Quick Audio & Parayanam Action Controls */}
+          <div className="mt-3.5 pt-3 border-t border-devotional flex items-center justify-between gap-2 flex-wrap">
+            {/* Listen to whole chapter button */}
+            <button
+              onClick={() => {
+                if (isSpeaking) {
+                  stopSpeech();
+                } else {
+                  speakChapter(sectionsToDisplay);
+                }
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition active:scale-95 ${
+                isSpeaking
+                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                  : 'bg-devotional-accent text-white shadow-2xs'
+              }`}
+            >
+              {isSpeaking ? (
+                <>
+                  <VolumeX className="w-4 h-4" />
+                  <span>വായന നിർത്തുക</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 className="w-4 h-4" />
+                  <span>മുഴുവൻ അദ്ധ്യായവും കേൾക്കുക</span>
+                </>
+              )}
+            </button>
+
+            {/* Parayanam Diary Button */}
+            <button
+              onClick={() => setIsDiaryOpen(true)}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold bg-black/5 hover:bg-black/10 text-devotional-primary transition active:scale-95"
+              title="പാരായണ കുറിപ്പ് / തീയതി"
+            >
+              <FileText className="w-3.5 h-3.5 text-devotional-accent" />
+              <span>കുറിപ്പ് / തീയതി</span>
+            </button>
+          </div>
+
+          {/* Secondary Reading Actions Bar */}
+          <div className="mt-2.5 pt-2.5 border-t border-devotional/60 flex items-center justify-between gap-2">
             {/* Mark as Completed Button */}
             <button
               onClick={() => toggleChapterComplete(skandamNum, chapterNum)}
@@ -239,7 +321,7 @@ export default function ChapterReadingPage() {
                 title="അർത്ഥങ്ങൾ ചേർക്കുക / മാറ്റുക"
               >
                 <Edit3 className="w-3.5 h-3.5" />
-                <span>അർത്ഥങ്ങൾ ചേർക്കുക</span>
+                <span>തിരുത്തുക</span>
               </button>
 
               {/* Quick Text Size Toggle */}
@@ -255,25 +337,20 @@ export default function ChapterReadingPage() {
           </div>
         </div>
 
-        {/* Note indicating only Malayalam meaning is shown */}
-        <div className="mb-4 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-devotional-secondary flex items-center justify-between">
-          <span>📖 പുസ്തകം വായിക്കുമ്പോൾ അർത്ഥം ഗ്രഹിക്കുവാനായുള്ള മലയാള വ്യാഖ്യാനം</span>
-          <span className="text-[11px] font-semibold text-devotional-accent shrink-0 ml-2">
-            {sectionsToDisplay.length} ഭാഗങ്ങൾ
-          </span>
-        </div>
-
         {/* Section-by-Section Malayalam Meanings */}
         <div className="space-y-4">
           {sectionsToDisplay.map((sec, index) => {
             const isSaved = isBookmarked(sec.id);
+            const isBeingSpoken = currentSectionId === sec.id;
 
             return (
               <article
                 key={sec.id}
                 id={`section-${sec.id}`}
                 className={`verse-target relative p-5 rounded-2xl bg-devotional-card border transition-all ${
-                  isSaved
+                  isBeingSpoken
+                    ? 'ring-2 ring-devotional-accent bg-amber-50/70 shadow-md'
+                    : isSaved
                     ? 'border-devotional-accent/60 shadow-xs'
                     : 'border-devotional shadow-2xs'
                 }`}
@@ -296,8 +373,28 @@ export default function ChapterReadingPage() {
                     )}
                   </div>
 
-                  {/* Action Buttons: Bookmark & Copy */}
+                  {/* Action Buttons: Speak, Bookmark & Copy */}
                   <div className="flex items-center gap-1">
+                    {/* Speak single section button */}
+                    <button
+                      onClick={() => {
+                        if (isBeingSpoken) {
+                          stopSpeech();
+                        } else {
+                          speakSection(sec.id, sec.meaning);
+                        }
+                      }}
+                      className={`p-2 rounded-xl transition active:scale-95 ${
+                        isBeingSpoken
+                          ? 'bg-devotional-accent text-white'
+                          : 'text-devotional-secondary hover:text-devotional-accent hover:bg-black/5'
+                      }`}
+                      title="ഈ ശ്ലോകം കേൾക്കുക"
+                      aria-label="ശ്രവിക്കുക"
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </button>
+
                     <button
                       onClick={() =>
                         toggleBookmark({
@@ -338,9 +435,7 @@ export default function ChapterReadingPage() {
 
                 {/* Malayalam Meaning Text Only (Strictly No Sanskrit) */}
                 <div
-                  className={`text-devotional-primary tracking-normal font-normal ${getTextSizeClass()} ${
-                    sec.isSample ? 'italic opacity-75' : ''
-                  }`}
+                  className={`text-devotional-primary tracking-normal font-normal ${getTextSizeClass()}`}
                 >
                   {sec.meaning}
                 </div>
@@ -431,6 +526,39 @@ export default function ChapterReadingPage() {
           </div>
         </div>
       </main>
+
+      {/* Floating Auto-Scroll Control Bar for Hands-Free Reading */}
+      <div className="fixed bottom-18 left-1/2 -translate-x-1/2 z-40 bg-devotional-card/95 backdrop-blur-md border border-devotional shadow-xl px-3.5 py-2 rounded-full flex items-center gap-2.5 transition-all animate-in fade-in slide-in-from-bottom-2">
+        <button
+          onClick={toggleAutoScroll}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition active:scale-95 ${
+            isScrolling
+              ? 'bg-amber-600 text-white animate-pulse'
+              : 'bg-devotional-accent text-white shadow-xs'
+          }`}
+          title={isScrolling ? 'സ്ക്രോൾ നിർത്തുക' : 'ഹാൻഡ്സ്-ഫ്രീ ഓട്ടോ-സ്ക്രോൾ തുടങ്ങുക'}
+        >
+          {isScrolling ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+          <span>{isScrolling ? 'നിർത്തുക' : 'ഓട്ടോ-സ്ക്രോൾ'}</span>
+        </button>
+
+        {/* Speed Selector */}
+        <div className="flex items-center gap-1 border-l border-devotional pl-2 text-[11px] font-semibold text-devotional-secondary">
+          {(['slow', 'normal', 'fast'] as ScrollSpeed[]).map((s) => (
+            <button
+              key={s}
+              onClick={() => setSpeed(s)}
+              className={`px-2 py-1 rounded-md transition ${
+                speed === s
+                  ? 'bg-black/10 text-devotional-primary font-bold'
+                  : 'hover:bg-black/5 text-devotional-secondary'
+              }`}
+            >
+              {s === 'slow' ? 'പതുക്കെ' : s === 'normal' ? 'സാധാരണ' : 'വേഗത്തിൽ'}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Editor Modal for Adding / Modifying Meanings */}
       {isEditorOpen && (
@@ -597,6 +725,14 @@ export default function ChapterReadingPage() {
           </div>
         </div>
       )}
+
+      {/* Parayanam Diary Modal */}
+      <ParayanamDiaryModal
+        isOpen={isDiaryOpen}
+        onClose={() => setIsDiaryOpen(false)}
+        skandam={skandamNum}
+        chapter={chapterNum}
+      />
 
       <BottomNav />
     </div>

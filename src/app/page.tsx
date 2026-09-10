@@ -1,16 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { BottomNav } from '@/components/BottomNav';
 import { getAllSkandams, getChapter } from '@/data';
 import { useReadingProgress } from '@/hooks/useReadingProgress';
-import { BookOpen, ChevronRight, Bookmark, Search, CheckCircle2 } from 'lucide-react';
+import { BookOpen, ChevronRight, Bookmark, Search, CheckCircle2, Calendar, FileText, Compass } from 'lucide-react';
+import { PageJumpModal } from '@/components/PageJumpModal';
+import { SaptahamModal } from '@/components/SaptahamModal';
+import { ParayanamDiaryModal } from '@/components/ParayanamDiaryModal';
 
 export default function HomePage() {
   const skandams = getAllSkandams();
   const { progress, isLoaded } = useReadingProgress();
+
+  const [isPageJumpOpen, setIsPageJumpOpen] = useState(false);
+  const [isSaptahamOpen, setIsSaptahamOpen] = useState(false);
+  const [isDiaryOpen, setIsDiaryOpen] = useState(false);
 
   const lastRead = progress.lastRead;
   let lastReadChapterTitle = '';
@@ -42,7 +49,7 @@ export default function HomePage() {
 
         {/* Continue Reading Card (തുടർന്നു വായിക്കുക) - Shows only if history exists */}
         {isLoaded && lastRead && (
-          <div className="mb-6 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/70 border-2 border-devotional-accent/40 p-5 shadow-xs transition-all">
+          <div className="mb-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/70 border-2 border-devotional-accent/40 p-5 shadow-xs transition-all">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold uppercase tracking-wider text-devotional-accent flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-devotional-accent animate-pulse" />
@@ -76,8 +83,47 @@ export default function HomePage() {
           </div>
         )}
 
+        {/* Essential Parayanam Tools Grid */}
+        <div className="grid grid-cols-3 gap-2.5 mb-4">
+          {/* Jump to Page */}
+          <button
+            onClick={() => setIsPageJumpOpen(true)}
+            className="flex flex-col items-center justify-center text-center p-3 rounded-xl bg-devotional-card border border-devotional shadow-2xs hover:border-devotional-accent transition active:scale-95"
+          >
+            <div className="p-2 rounded-lg bg-devotional-accent-light text-devotional-accent mb-1.5">
+              <Compass className="w-5 h-5" />
+            </div>
+            <span className="font-bold text-devotional-primary text-xs">പേജിലേക്ക്</span>
+            <span className="text-[10px] text-devotional-secondary">പുസ്തകത്തിലെ പേജ്</span>
+          </button>
+
+          {/* Saptaham Plan */}
+          <button
+            onClick={() => setIsSaptahamOpen(true)}
+            className="flex flex-col items-center justify-center text-center p-3 rounded-xl bg-devotional-card border border-devotional shadow-2xs hover:border-devotional-accent transition active:scale-95"
+          >
+            <div className="p-2 rounded-lg bg-devotional-accent-light text-devotional-accent mb-1.5">
+              <Calendar className="w-5 h-5" />
+            </div>
+            <span className="font-bold text-devotional-primary text-xs">സപ്താഹം</span>
+            <span className="text-[10px] text-devotional-secondary">7 ദിവസ ക്രമം</span>
+          </button>
+
+          {/* Diary & Notes */}
+          <button
+            onClick={() => setIsDiaryOpen(true)}
+            className="flex flex-col items-center justify-center text-center p-3 rounded-xl bg-devotional-card border border-devotional shadow-2xs hover:border-devotional-accent transition active:scale-95"
+          >
+            <div className="p-2 rounded-lg bg-devotional-accent-light text-devotional-accent mb-1.5">
+              <FileText className="w-5 h-5" />
+            </div>
+            <span className="font-bold text-devotional-primary text-xs">ഡയറി</span>
+            <span className="text-[10px] text-devotional-secondary">കുറിപ്പുകൾ</span>
+          </button>
+        </div>
+
         {/* Quick Search & Bookmarks Bar */}
-        <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-2 gap-2.5 mb-6">
           <Link
             href="/search"
             className="flex items-center gap-3 p-3.5 rounded-xl bg-devotional-card border border-devotional shadow-2xs hover:bg-black/5 transition active:scale-98"
@@ -116,7 +162,7 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* 6 Large Easy-to-Tap Skandam Cards */}
+        {/* 12 Large Easy-to-Tap Skandam Cards */}
         <div className="space-y-3.5">
           {skandams.map((skandam) => {
             // Count completed chapters in this skandam
@@ -179,6 +225,10 @@ export default function HomePage() {
           })}
         </div>
       </main>
+
+      <PageJumpModal isOpen={isPageJumpOpen} onClose={() => setIsPageJumpOpen(false)} />
+      <SaptahamModal isOpen={isSaptahamOpen} onClose={() => setIsSaptahamOpen(false)} />
+      <ParayanamDiaryModal isOpen={isDiaryOpen} onClose={() => setIsDiaryOpen(false)} />
 
       <BottomNav />
     </div>

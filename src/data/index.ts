@@ -1,6 +1,6 @@
 import { Chapter, ChapterMeta, SkandamMeta, SearchResult } from './types';
-import { SKANDAMS_META, ALL_CHAPTERS_META } from './metadata';
-export { SKANDAMS_META, ALL_CHAPTERS_META };
+import { SKANDAMS_META, ALL_CHAPTERS_META, findChapterByPageNumber } from './metadata';
+export { SKANDAMS_META, ALL_CHAPTERS_META, findChapterByPageNumber };
 
 // Individual authored chapters with authentic Malayalam meanings
 import { chapter1 as s1c1 } from './skandams/skandam-1/chapter-1';
