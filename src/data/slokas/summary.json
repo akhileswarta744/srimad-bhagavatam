@@ -512,83 +512,83 @@
       "chapters": {
         "1": {
           "verseCount": 68,
-          "malayalamVerseCount": 12
+          "malayalamVerseCount": 68
         },
         "2": {
           "verseCount": 49,
-          "malayalamVerseCount": 5
+          "malayalamVerseCount": 49
         },
         "3": {
           "verseCount": 35,
-          "malayalamVerseCount": 4
+          "malayalamVerseCount": 35
         },
         "4": {
           "verseCount": 54,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 54
         },
         "5": {
           "verseCount": 44,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 44
         },
         "6": {
           "verseCount": 45,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 45
         },
         "7": {
           "verseCount": 40,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 40
         },
         "8": {
           "verseCount": 42,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 42
         },
         "9": {
           "verseCount": 55,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 55
         },
         "10": {
           "verseCount": 33,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 33
         },
         "11": {
           "verseCount": 27,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 27
         },
         "12": {
           "verseCount": 35,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 35
         },
         "13": {
           "verseCount": 23,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 23
         },
         "14": {
           "verseCount": 61,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 61
         },
         "15": {
           "verseCount": 28,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 28
         },
         "16": {
           "verseCount": 65,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 65
         },
         "17": {
           "verseCount": 41,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 41
         },
         "18": {
           "verseCount": 78,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 78
         },
         "19": {
           "verseCount": 28,
-          "malayalamVerseCount": 0
+          "malayalamVerseCount": 28
         }
       },
       "totalVerses": 851,
-      "totalMalayalamAuthored": 21
+      "totalMalayalamAuthored": 851
     },
     "7": {
       "chapters": {
@@ -1415,5 +1415,5 @@
       "totalMalayalamAuthored": 0
     }
   },
-  "totalMalayalamAuthored": 1064
+  "totalMalayalamAuthored": 1894
 }
