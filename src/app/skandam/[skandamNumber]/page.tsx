@@ -49,7 +49,7 @@ export default function SkandamPage() {
         <div className="p-5 mb-5 rounded-2xl bg-devotional-card border border-devotional shadow-xs">
           <div className="flex items-center justify-between gap-2 mb-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-devotional-accent-light text-devotional-accent text-xs font-bold">
-              <span>{skandam.name}</span>
+              <span>സ്കന്ധം {skandam.number} • {skandam.name}</span>
             </div>
             <span className="text-xs font-semibold text-devotional-secondary bg-black/5 px-2.5 py-1 rounded-md">
               {skandam.pageRange}
@@ -57,7 +57,7 @@ export default function SkandamPage() {
           </div>
 
           <h1 className="text-2xl font-bold text-devotional-primary mt-1">
-            {skandam.shortName}
+            {skandam.name} ({skandam.shortName})
           </h1>
           {skandam.subTitle && (
             <p className="text-sm font-semibold text-devotional-accent mt-0.5">
@@ -69,13 +69,20 @@ export default function SkandamPage() {
             {skandam.description}
           </p>
 
-          <div className="mt-4 pt-3 border-t border-devotional flex items-center justify-between text-xs text-devotional-secondary">
-            <span>ആകെ {skandam.chapterCount} അദ്ധ്യായങ്ങൾ</span>
-            {isLoaded && completedCount > 0 && (
-              <span className="text-emerald-700 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4" />
-                {completedCount} അദ്ധ്യായങ്ങൾ വായിച്ചു
-              </span>
+          <div className="mt-4 pt-3 border-t border-devotional grid grid-cols-2 gap-2 text-xs text-devotional-secondary">
+            <div className="flex items-center gap-1.5 font-semibold text-devotional-primary">
+              <span>📖 ആകെ {skandam.chapterCount} അദ്ധ്യായങ്ങൾ</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-semibold text-devotional-primary justify-end">
+              <span>🕉️ {skandam.totalVerses || 0} ശ്ലോകങ്ങൾ</span>
+            </div>
+            {isLoaded && (
+              <div className="col-span-2 pt-1.5 flex items-center justify-between text-xs">
+                <span className="text-devotional-secondary">പാരായണ പുരോഗതി:</span>
+                <span className={`font-bold ${completedCount > 0 ? 'text-emerald-700' : 'text-devotional-secondary'}`}>
+                  {completedCount} / {skandam.chapterCount} അദ്ധ്യായങ്ങൾ വായിച്ചു
+                </span>
+              </div>
             )}
           </div>
         </div>

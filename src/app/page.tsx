@@ -43,7 +43,7 @@ export default function HomePage() {
             നിത്യപാരായണത്തിനായുള്ള മലയാള അർത്ഥം
           </p>
           <div className="mt-2 inline-flex items-center gap-1.5 text-xs text-devotional-accent font-semibold bg-devotional-accent-light px-3 py-1 rounded-full">
-            <span>പ്രഥമ സ്കന്ധം മുതൽ ദ്വാദശ സ്കന്ധം വരെ (12 സ്കന്ധങ്ങൾ • 335 അദ്ധ്യായങ്ങൾ)</span>
+            <span>12 സ്കന്ധങ്ങൾ • 335 അദ്ധ്യായങ്ങൾ • 14,089 ശ്ലോകങ്ങൾ</span>
           </div>
         </div>
 
@@ -200,10 +200,15 @@ export default function HomePage() {
                       {skandam.description}
                     </p>
 
-                    <div className="mt-3 flex items-center gap-3 text-xs text-devotional-secondary">
+                    <div className="mt-3 flex items-center gap-2 text-xs text-devotional-secondary flex-wrap">
                       <span className="font-medium bg-black/5 px-2.5 py-1 rounded-md">
                         {skandam.chapterCount} അദ്ധ്യായങ്ങൾ
                       </span>
+                      {skandam.totalVerses && (
+                        <span className="font-medium bg-black/5 px-2.5 py-1 rounded-md">
+                          {skandam.totalVerses} ശ്ലോകങ്ങൾ
+                        </span>
+                      )}
                       <span className="font-medium bg-black/5 px-2.5 py-1 rounded-md">
                         {skandam.pageRange}
                       </span>

@@ -1,0 +1,603 @@
+[
+  {
+    "id": "skandha-04-chapter-01-sloka-001",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 1,
+    "sanskrit": "मनोस्तु शतरूपायां तिस्रः कन्याश्च जज्ञिरे आकूतिर्देवहूतिश्च प्रसूतिरिति विश्रुताः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "मैत्रेय उवाच ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-002",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 2,
+    "sanskrit": "आकूतिं रुचये प्रादादपि भ्रातृमतीं नृपः पुत्रिकाधर्ममाश्रित्य शतरूपानुमोदितः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-003",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 3,
+    "sanskrit": "प्रजापतिः स भगवान्रुचिस्तस्यामजीजनत् मिथुनं ब्रह्मवर्चस्वी परमेण समाधिना",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-004",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 4,
+    "sanskrit": "यस्तयोः पुरुषः साक्षाद्विष्णुर्यज्ञस्वरूपधृक् या स्त्री सा दक्षिणा भूतेरंशभूतानपायिनी",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-005",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 5,
+    "sanskrit": "आनिन्ये स्वगृहं पुत्र्याः पुत्रं विततरोचिषम् स्वायम्भुवो मुदा युक्तो रुचिर्जग्राह दक्षिणाम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-006",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 6,
+    "sanskrit": "तां कामयानां भगवानुवाह यजुषां पतिः तुष्टायां तोषमापन्नोऽ जनयद्द्वादशात्मजान्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-007",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 7,
+    "sanskrit": "तोषः प्रतोषः सन्तोषो भद्रः शान्तिरिडस्पतिः इध्मः कविर्विभुः स्वह्नः सुदेवो रोचनो द्विषट्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-008",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 8,
+    "sanskrit": "तुषिता नाम ते देवा आसन्स्वायम्भुवान्तरे मरीचिमिश्रा ऋषयो यज्ञः सुरगणेश्वरः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-009",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 9,
+    "sanskrit": "प्रियव्रतोत्तानपादौ मनुपुत्रौ महौजसौ तत्पुत्रपौत्रनप्तॄणामनुवृत्तं तदन्तरम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-010",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 10,
+    "sanskrit": "देवहूतिमदात्तात कर्दमायात्मजां मनुः तत्सम्बन्धि श्रुतप्रायं भवता गदतो मम",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-011",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 11,
+    "sanskrit": "दक्षाय ब्रह्मपुत्राय प्रसूतिं भगवान्मनुः प्रायच्छद्यत्कृतः सर्गस्त्रिलोक्यां विततो महान्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-012",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 12,
+    "sanskrit": "याः कर्दमसुताः प्रोक्ता नव ब्रह्मर्षिपत्नयः तासां प्रसूतिप्रसवं प्रोच्यमानं निबोध मे",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-013",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 13,
+    "sanskrit": "पत्नी मरीचेस्तु कला सुषुवे कर्दमात्मजा कश्यपं पूर्णिमानं च ययोरापूरितं जगत्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-014",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 14,
+    "sanskrit": "पूर्णिमासूत विरजं विश्वगं च परन्तप देवकुल्यां हरेः पाद शौचाद्याभूत्सरिद्दिवः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-015",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 15,
+    "sanskrit": "अत्रेः पत्न्यनसूया त्रीञ्जज्ञे सुयशसः सुतान् दत्तं दुर्वाससं सोममात्मेशब्रह्मसम्भवान्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-016",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 16,
+    "sanskrit": "अत्रेर्गृहे सुरश्रेष्ठाः स्थित्युत्पत्त्यन्तहेतवः किञ्चिच्चिकीर्षवो जाता एतदाख्याहि मे गुरो",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "विदुर उवाच ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-017",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 17,
+    "sanskrit": "ब्रह्मणा चोदितः सृष्टावत्रिर्ब्रह्मविदां वरः सह पत्न्या ययावृक्षं कुलाद्रिं तपसि स्थितः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "मैत्रेय उवाच ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-018",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 18,
+    "sanskrit": "तस्मिन्प्रसूनस्तबक पलाशाशोककानने वार्भिः स्रवद्भिरुद्घुष्टे निर्विन्ध्यायाः समन्ततः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-019",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 19,
+    "sanskrit": "प्राणायामेन संयम्य मनो वर्षशतं मुनिः अतिष्ठदेकपादेन निर्द्वन्द्वोऽनिलभोजनः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-020",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 20,
+    "sanskrit": "शरणं तं प्रपद्येऽहं य एव जगदीश्वरः प्रजामात्मसमां मह्यं प्रयच्छत्विति चिन्तयन्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-021",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 21,
+    "sanskrit": "तप्यमानं त्रिभुवनं प्राणायामैधसाग्निना निर्गतेन मुनेर्मूर्ध्नः समीक्ष्य प्रभवस्त्रयः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-022",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 22,
+    "sanskrit": "अप्सरोमुनिगन्धर्व सिद्धविद्याधरोरगैः वितायमानयशसस्तदाश्रमपदं ययुः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-023",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 23,
+    "sanskrit": "तत्प्रादुर्भावसंयोग विद्योतितमना मुनिः उत्तिष्ठन्नेकपादेन ददर्श विबुधर्षभान्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-024",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 24,
+    "sanskrit": "प्रणम्य दण्डवद्भूमावुपतस्थेऽर्हणाञ्जलिः वृषहंससुपर्णस्थान्स्वैः स्वैश्चिह्नैश्च चिह्नितान्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-025",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 25,
+    "sanskrit": "कृपावलोकेन हसद् वदनेनोपलम्भितान् तद्रोचिषा प्रतिहते निमील्य मुनिरक्षिणी",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-026",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 26,
+    "sanskrit": "चेतस्तत्प्रवणं युञ्जन्नस्तावीत्संहताञ्जलिः श्लक्ष्णया सूक्तया वाचा सर्वलोकगरीयसः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-027",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 27,
+    "sanskrit": "विश्वोद्भवस्थितिलयेषु विभज्यमानैर् मायागुणैरनुयुगं विगृहीतदेहाः ते ब्रह्मविष्णुगिरिशाः प्रणतोऽस्म्यहं वस् तेभ्यः क एव भवतां म इहोपहूतः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "अत्रिरुवाच ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-028",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 28,
+    "sanskrit": "एको मयेह भगवान्विविधप्रधानैश् चित्तीकृतः प्रजननाय कथं नु यूयम् अत्रागतास्तनुभृतां मनसोऽपि दूराद् ब्रूत प्रसीदत महानिह विस्मयो मे",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-029",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 29,
+    "sanskrit": "इति तस्य वचः श्रुत्वा त्रयस्ते विबुधर्षभाः प्रत्याहुः श्लक्ष्णया वाचा प्रहस्य तमृषिं प्रभो",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "मैत्रेय उवाच ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-030",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 30,
+    "sanskrit": "यथा कृतस्ते सङ्कल्पो भाव्यं तेनैव नान्यथा सत्सङ्कल्पस्य ते ब्रह्मन्यद्वै ध्यायति ते वयम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "देवा ऊचुः ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-031",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 31,
+    "sanskrit": "अथास्मदंशभूतास्ते आत्मजा लोकविश्रुताः भवितारोऽङ्ग भद्रं ते विस्रप्स्यन्ति च ते यशः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-032",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 32,
+    "sanskrit": "एवं कामवरं दत्त्वा प्रतिजग्मुः सुरेश्वराः सभाजितास्तयोः सम्यग्दम्पत्योर्मिषतोस्ततः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-033",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 33,
+    "sanskrit": "सोमोऽभूद्ब्रह्मणोऽंशेन दत्तो विष्णोस्तु योगवित् दुर्वासाः शङ्करस्यांशो निबोधाङ्गिरसः प्रजाः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-034",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 34,
+    "sanskrit": "श्रद्धा त्वङ्गिरसः पत्नी चतस्रोऽसूत कन्यकाः सिनीवाली कुहू राका चतुर्थ्यनुमतिस्तथा",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-035",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 35,
+    "sanskrit": "तत्पुत्रावपरावास्तां ख्यातौ स्वारोचिषेऽन्तरे उतथ्यो भगवान्साक्षाद्ब्रह्मिष्ठश्च बृहस्पतिः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-036",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 36,
+    "sanskrit": "पुलस्त्योऽजनयत्पत्न्यामगस्त्यं च हविर्भुवि सोऽन्यजन्मनि दह्राग्निर्विश्रवाश्च महातपाः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-037",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 37,
+    "sanskrit": "तस्य यक्षपतिर्देवः कुबेरस्त्विडविडासुतः रावणः कुम्भकर्णश्च तथान्यस्यां विभीषणः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-038",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 38,
+    "sanskrit": "पुलहस्य गतिर्भार्या त्रीनसूत सती सुतान् कर्मश्रेष्ठं वरीयांसं सहिष्णुं च महामते",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-039",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 39,
+    "sanskrit": "क्रतोरपि क्रिया भार्या वालखिल्यानसूयत ऋषीन्षष्टिसहस्राणि ज्वलतो ब्रह्मतेजसा",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-040",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 40,
+    "sanskrit": "ऊर्जायां जज्ञिरे पुत्रा वसिष्ठस्य परन्तप चित्रकेतुप्रधानास्ते सप्त ब्रह्मर्षयोऽमलाः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-041",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 41,
+    "sanskrit": "चित्रकेतुः सुरोचिश्च विरजा मित्र एव च उल्बणो वसुभृद्यानो द्युमान्शक्त्यादयोऽपरे",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-042",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 42,
+    "sanskrit": "चित्तिस्त्वथर्वणः पत्नी लेभे पुत्रं धृतव्रतम् दध्यञ्चमश्वशिरसं भृगोर्वंशं निबोध मे",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-043",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 43,
+    "sanskrit": "भृगुः ख्यात्यां महाभागः पत्न्यां पुत्रानजीजनत् धातारं च विधातारं श्रियं च भगवत्पराम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-044",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 44,
+    "sanskrit": "आयतिं नियतिं चैव सुते मेरुस्तयोरदात् ताभ्यां तयोरभवतां मृकण्डः प्राण एव च",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-045",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 45,
+    "sanskrit": "मार्कण्डेयो मृकण्डस्य प्राणाद्वेदशिरा मुनिः कविश्च भार्गवो यस्य भगवानुशना सुतः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-046",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 46,
+    "sanskrit": "त एते मुनयः क्षत्तर्लोकान्सर्गैरभावयन् एष कर्दमदौहित्र सन्तानः कथितस्तव शृण्वतः श्रद्दधानस्य सद्यः पापहरः परः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-047",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 47,
+    "sanskrit": "प्रसूतिं मानवीं दक्ष उपयेमे ह्यजात्मजः तस्यां ससर्ज दुहितॄः षोडशामललोचनाः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-048",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 48,
+    "sanskrit": "त्रयोदशादाद्धर्माय तथैकामग्नये विभुः पितृभ्य एकां युक्तेभ्यो भवायैकां भवच्छिदे",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-049",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 49,
+    "sanskrit": "श्रद्धा मैत्री दया शान्तिस्तुष्टिः पुष्टिः क्रियोन्नतिः बुद्धिर्मेधा तितिक्षा ह्रीर्मूर्तिर्धर्मस्य पत्नयः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-050",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 50,
+    "sanskrit": "श्रद्धासूत शुभं मैत्री प्रसादमभयं दया शान्तिः सुखं मुदं तुष्टिः स्मयं पुष्टिरसूयत",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-051",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 51,
+    "sanskrit": "योगं क्रियोन्नतिर्दर्पमर्थं बुद्धिरसूयत मेधा स्मृतिं तितिक्षा तु क्षेमं ह्रीः प्रश्रयं सुतम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-052",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 52,
+    "sanskrit": "मूर्तिः सर्वगुणोत्पत्तिर्नरनारायणावृषी",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-053",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 53,
+    "sanskrit": "ययोर्जन्मन्यदो विश्वमभ्यनन्दत्सुनिर्वृतम् मनांसि ककुभो वाताः प्रसेदुः सरितोऽद्रयः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-054",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 54,
+    "sanskrit": "दिव्यवाद्यन्त तूर्याणि पेतुः कुसुमवृष्टयः मुनयस्तुष्टुवुस्तुष्टा जगुर्गन्धर्वकिन्नराः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-055",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 55,
+    "sanskrit": "नृत्यन्ति स्म स्त्रियो देव्य आसीत्परममङ्गलम् देवा ब्रह्मादयः सर्वे उपतस्थुरभिष्टवैः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-056",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 56,
+    "sanskrit": "यो मायया विरचितं निजयात्मनीदं खे रूपभेदमिव तत्प्रतिचक्षणाय एतेन धर्मसदने ऋषिमूर्तिनाद्य प्रादुश्चकार पुरुषाय नमः परस्मै",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress",
+    "speaker": "देवा ऊचुः ।"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-057",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 57,
+    "sanskrit": "सोऽयं स्थितिव्यतिकरोपशमाय सृष्टान् सत्त्वेन नः सुरगणाननुमेयतत्त्वः दृश्याददभ्रकरुणेन विलोकनेन यच्छ्रीनिकेतममलं क्षिपतारविन्दम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-058",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 58,
+    "sanskrit": "एवं सुरगणैस्तात भगवन्तावभिष्टुतौ लब्धावलोकैर्ययतुरर्चितौ गन्धमादनम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-059",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 59,
+    "sanskrit": "ताविमौ वै भगवतो हरेरंशाविहागतौ भारव्ययाय च भुवः कृष्णौ यदुकुरूद्वहौ",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-060",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 60,
+    "sanskrit": "स्वाहाभिमानिनश्चाग्नेरात्मजांस्त्रीनजीजनत् पावकं पवमानं च शुचिं च हुतभोजनम्",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-061",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 61,
+    "sanskrit": "तेभ्योऽग्नयः समभवञ्चत्वारिंशच्च पञ्च च त एवैकोनपञ्चाशत्साकं पितृपितामहैः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-062",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 62,
+    "sanskrit": "वैतानिके कर्मणि यन् नामभिर्ब्रह्मवादिभिः आग्नेय्य इष्टयो यज्ञे निरूप्यन्तेऽग्नयस्तु ते",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-063",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 63,
+    "sanskrit": "अग्निष्वात्ता बर्हिषदः सौम्याः पितर आज्यपाः साग्नयोऽनग्नयस्तेषां पत्नी दाक्षायणी स्वधा",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-064",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 64,
+    "sanskrit": "तेभ्यो दधार कन्ये द्वे वयुनां धारिणीं स्वधा उभे ते ब्रह्मवादिन्यौ ज्ञानविज्ञानपारगे",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-065",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 65,
+    "sanskrit": "भवस्य पत्नी तु सती भवं देवमनुव्रता आत्मनः सदृशं पुत्रं न लेभे गुणशीलतः",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  },
+  {
+    "id": "skandha-04-chapter-01-sloka-066",
+    "skandha": 4,
+    "chapter": 1,
+    "sloka": 66,
+    "sanskrit": "पितर्यप्रतिरूपे स्वे भवायानागसे रुषा अप्रौढैवात्मनात्मानमजहाद्योगसंयुता",
+    "malayalamMeaning": "",
+    "source": "Sanskrit Documents / Gitapress"
+  }
+]

@@ -95,9 +95,17 @@ export default function BookmarksPage() {
                   </button>
                 </div>
 
-                <div className="text-xs md:text-sm text-devotional-primary leading-relaxed bg-black/2 p-3 rounded-xl border border-devotional/40 line-clamp-3">
-                  {bm.meaningSnippet}...
-                </div>
+                {bm.sanskritSnippet && (
+                  <div className="text-xs font-serif text-devotional-primary/90 bg-amber-50/70 p-2.5 rounded-xl border border-amber-200/60 mb-2 line-clamp-2">
+                    {bm.sanskritSnippet}...
+                  </div>
+                )}
+
+                {bm.meaningSnippet && (
+                  <div className="text-xs md:text-sm text-devotional-primary leading-relaxed bg-black/2 p-2.5 rounded-xl border border-devotional/40 line-clamp-3">
+                    {bm.meaningSnippet}...
+                  </div>
+                )}
 
                 <div className="mt-3 flex items-center justify-end">
                   <Link

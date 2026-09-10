@@ -8,6 +8,7 @@ const STORAGE_KEY = 'bhagavatam_reading_progress';
 const defaultProgress: ReadingProgress = {
   lastRead: null,
   completedChapters: {},
+  completedSlokas: {},
 };
 
 export function useReadingProgress() {
@@ -19,7 +20,12 @@ export function useReadingProgress() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        setProgress(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setProgress({
+          lastRead: parsed.lastRead || null,
+          completedChapters: parsed.completedChapters || {},
+          completedSlokas: parsed.completedSlokas || {},
+        });
       }
     } catch (e) {
       console.error('Error loading reading progress', e);
@@ -29,14 +35,15 @@ export function useReadingProgress() {
   }, []);
 
   // Save progress helper
-  const saveProgress = (skandam: number, chapter: number, sectionId?: string) => {
+  const saveProgress = (skandam: number, chapter: number, sectionId?: string, slokaId?: string) => {
     setProgress((prev) => {
       const updated: ReadingProgress = {
         ...prev,
         lastRead: {
           skandam,
           chapter,
-          sectionId,
+          sectionId: sectionId || slokaId,
+          slokaId: slokaId || sectionId,
           timestamp: Date.now(),
         },
       };
@@ -74,11 +81,43 @@ export function useReadingProgress() {
     return !!progress.completedChapters[`${skandam}-${chapter}`];
   };
 
+  // Toggle individual sloka completion
+  const toggleSlokaComplete = (slokaId: string) => {
+    setProgress((prev) => {
+      const current = prev.completedSlokas || {};
+      const isCurrentlyComplete = !!current[slokaId];
+      const updated: ReadingProgress = {
+        ...prev,
+        completedSlokas: {
+          ...current,
+          [slokaId]: !isCurrentlyComplete,
+        },
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      } catch (e) {
+        console.error('Error toggling sloka complete', e);
+      }
+      return updated;
+    });
+  };
+
+  const isSlokaCompleted = (slokaId: string): boolean => {
+    return !!progress.completedSlokas?.[slokaId];
+  };
+
+  const getCompletedSlokasCount = (): number => {
+    return Object.values(progress.completedSlokas || {}).filter(Boolean).length;
+  };
+
   return {
     progress,
     isLoaded,
     saveProgress,
     toggleChapterComplete,
     isChapterCompleted,
+    toggleSlokaComplete,
+    isSlokaCompleted,
+    getCompletedSlokasCount,
   };
 }

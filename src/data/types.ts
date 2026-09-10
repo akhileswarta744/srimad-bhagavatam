@@ -1,10 +1,25 @@
-export interface Section {
-  id: string; // e.g., "1-1-1"
-  number: number | string; // e.g., 1 or "1-2"
-  meaning: string; // Malayalam meaning only, strictly no Sanskrit
-  page?: string | number; // page reference in physical book
+export interface Sloka {
+  id: string; // e.g. "skandha-01-chapter-01-sloka-001"
+  skandha: number;
+  chapter: number;
+  sloka: number;
+  sanskrit: string; // Authentic Devanāgarī Sanskrit verse
+  malayalamMeaning: string; // Authentic Malayalam meaning
+  source: string; // Canonical source attribution, e.g. "Sanskrit Documents / Gita Press"
+  speaker?: string; // e.g. "श्रीशुक उवाच", "सूत उवाच"
+  page?: string | number;
   notes?: string;
-  isSample?: boolean; // if marked as sample placeholder
+}
+
+export interface Section {
+  id: string; // e.g., "1-1-1" or "skandha-01-chapter-01-sloka-001"
+  number: number | string; // e.g., 1 or "1-2"
+  meaning: string; // Malayalam meaning
+  sanskrit?: string; // Original Sanskrit verse
+  speaker?: string;
+  page?: string | number;
+  notes?: string;
+  isSample?: boolean;
 }
 
 export interface Chapter {
@@ -14,6 +29,16 @@ export interface Chapter {
   pageRange: string; // Physical book page range e.g., "47–51"
   totalVerses?: number;
   sections: Section[];
+  slokas?: Sloka[];
+}
+
+export interface ChapterSlokas {
+  skandha: number;
+  chapter: number;
+  title: string;
+  pageRange: string;
+  totalVerses: number;
+  slokas: Sloka[];
 }
 
 export interface ChapterMeta {
@@ -30,17 +55,20 @@ export interface SkandamMeta {
   shortName: string; // e.g. "സ്കന്ധം 1"
   subTitle: string; // e.g. "അധികാര ലീല"
   chapterCount: number;
+  totalVerses?: number;
   pageRange: string; // e.g. "പേജ് 47–110"
   description: string;
 }
 
 export interface Bookmark {
-  id: string; // e.g. "1-1-1"
+  id: string; // stable ID e.g. "skandha-01-chapter-01-sloka-001" or legacy "1-1-1"
   skandam: number;
   chapter: number;
   chapterTitle: string;
   sectionNumber: number | string;
+  slokaNumber?: number;
   meaningSnippet: string;
+  sanskritSnippet?: string;
   timestamp: number;
 }
 
@@ -49,9 +77,11 @@ export interface ReadingProgress {
     skandam: number;
     chapter: number;
     sectionId?: string;
+    slokaId?: string;
     timestamp: number;
   } | null;
   completedChapters: Record<string, boolean>; // e.g. "1-1": true
+  completedSlokas?: Record<string, boolean>; // e.g. "skandha-01-chapter-01-sloka-001": true
 }
 
 export type TextSize = 'normal' | 'large' | 'xlarge';
@@ -65,6 +95,37 @@ export interface SearchResult {
   sectionNumber: number | string;
   sectionId: string;
   meaning: string;
+  sanskrit?: string;
   pageRange: string;
   matchIndex: number;
+  matchField?: 'meaning' | 'sanskrit' | 'sloka';
+}
+
+// Helper to construct stable sloka ID
+export function formatSlokaId(skandha: number, chapter: number, sloka: number): string {
+  const s = String(skandha).padStart(2, '0');
+  const c = String(chapter).padStart(2, '0');
+  const sl = String(sloka).padStart(3, '0');
+  return `skandha-${s}-chapter-${c}-sloka-${sl}`;
+}
+
+// Helper to parse stable sloka ID
+export function parseSlokaId(id: string): { skandha: number; chapter: number; sloka: number } | null {
+  const match = id.match(/^skandha-(\d+)-chapter-(\d+)-sloka-(\d+)$/);
+  if (match) {
+    return {
+      skandha: parseInt(match[1], 10),
+      chapter: parseInt(match[2], 10),
+      sloka: parseInt(match[3], 10),
+    };
+  }
+  const legacyMatch = id.match(/^(\d+)-(\d+)-(\d+)$/);
+  if (legacyMatch) {
+    return {
+      skandha: parseInt(legacyMatch[1], 10),
+      chapter: parseInt(legacyMatch[2], 10),
+      sloka: parseInt(legacyMatch[3], 10),
+    };
+  }
+  return null;
 }
