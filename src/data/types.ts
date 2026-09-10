@@ -3,10 +3,9 @@ export interface Sloka {
   skandha: number;
   chapter: number;
   sloka: number;
-  sanskrit: string; // Authentic Devanāgarī Sanskrit verse
   malayalamMeaning: string; // Authentic Malayalam meaning
   source: string; // Canonical source attribution, e.g. "Sanskrit Documents / Gita Press"
-  speaker?: string; // e.g. "श्रीशुक उवाच", "सूत उवाच"
+  speaker?: string; // Speaker attribution in Malayalam (e.g. "സൂതൻ പറഞ്ഞു", "ശ്രീശുകൻ പറഞ്ഞു")
   page?: string | number;
   notes?: string;
 }
@@ -15,7 +14,6 @@ export interface Section {
   id: string; // e.g., "1-1-1" or "skandha-01-chapter-01-sloka-001"
   number: number | string; // e.g., 1 or "1-2"
   meaning: string; // Malayalam meaning
-  sanskrit?: string; // Original Sanskrit verse
   speaker?: string;
   page?: string | number;
   notes?: string;
@@ -68,7 +66,6 @@ export interface Bookmark {
   sectionNumber: number | string;
   slokaNumber?: number;
   meaningSnippet: string;
-  sanskritSnippet?: string;
   timestamp: number;
 }
 
@@ -95,10 +92,9 @@ export interface SearchResult {
   sectionNumber: number | string;
   sectionId: string;
   meaning: string;
-  sanskrit?: string;
   pageRange: string;
   matchIndex: number;
-  matchField?: 'meaning' | 'sanskrit' | 'sloka';
+  matchField?: 'meaning' | 'sloka';
 }
 
 // Helper to construct stable sloka ID

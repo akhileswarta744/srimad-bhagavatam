@@ -21,7 +21,20 @@ function parseSectionsFromTs(filePath, defaultSkandam = null, defaultChapter = n
       const meaning = meaningMatch[1].replace(/\\"/g, '"').replace(/\\'/g, "'").trim();
 
       // Skip any placeholder
-      if (meaning.includes('മാറ്റിവെച്ചിരിക്കുന്നു')) continue;
+      if (
+        meaning.includes('മാറ്റിവെ') ||
+        meaning.includes('അർത്ഥം ചേർക്കുവാനായി') ||
+        meaning.includes('Meaning will be added') ||
+        meaning.includes('Coming soon') ||
+        meaning.includes('[Malayalam meaning here]')
+      ) {
+        continue;
+      }
+
+      // Skip if contains Devanagari Sanskrit
+      if (/[\u0900-\u097F]/.test(meaning)) {
+        continue;
+      }
 
       let s = defaultSkandam;
       let c = defaultChapter;
@@ -58,6 +71,39 @@ parseSectionsFromTs('src/data/skandams/skandam-6/chapters-2-to-3.ts', 6);
 
 console.log(`Loaded ${malayalamMap.size} authentic Malayalam verse meanings from authored files.`);
 
+function mapSpeakerToMalayalam(spk) {
+  if (!spk) return undefined;
+  const clean = spk.replace(/[।\s]/g, '');
+  if (clean.includes('सूत')) return 'സൂതൻ പറഞ്ഞു';
+  if (clean.includes('शौनक') || clean.includes('ऋषय')) return 'ശൗനകാദി മുനിമാർ പറഞ്ഞു';
+  if (clean.includes('शुक')) return 'ശ്രീശുകൻ പറഞ്ഞു';
+  if (clean.includes('राजोवाच') || clean.includes('परीक्षित')) return 'പരീക്ഷിത്ത് മഹാരാജാവ് പറഞ്ഞു';
+  if (clean.includes('मैत्रेय')) return 'മൈത്രേയൻ പറഞ്ഞു';
+  if (clean.includes('विदुर')) return 'വിദുരർ പറഞ്ഞു';
+  if (clean.includes('नारद')) return 'നാരദൻ പറഞ്ഞു';
+  if (clean.includes('ब्रह्म')) return 'ബ്രഹ്മാവ് പറഞ്ഞു';
+  if (clean.includes('भगवान') || clean.includes('श्रीभगवान')) return 'ഭഗവാൻ പറഞ്ഞു';
+  if (clean.includes('रुद्र') || clean.includes('शिव')) return 'ശിവൻ പറഞ്ഞു';
+  if (clean.includes('प्रह्लाद')) return 'പ്രഹ്ലാദൻ പറഞ്ഞു';
+  if (clean.includes('हिरण्यकशिपु')) return 'ഹിരണ്യകശിപു പറഞ്ഞു';
+  if (clean.includes('बलि')) return 'ബലി മഹാരാജാവ് പറഞ്ഞു';
+  if (clean.includes('कपिल')) return 'കപിലദേവൻ പറഞ്ഞു';
+  if (clean.includes('देवहूति')) return 'ദേവഹൂതി പറഞ്ഞു';
+  if (clean.includes('यम')) return 'യമധർമ്മൻ പറഞ്ഞു';
+  if (clean.includes('अक्रूर')) return 'അക്രൂരൻ പറഞ്ഞു';
+  if (clean.includes('उद्धव')) return 'ഉദ്ധവർ പറഞ്ഞു';
+  if (clean.includes('गोप्य')) return 'ഗോപികമാർ പറഞ്ഞു';
+  if (clean.includes('अर्जुन')) return 'അർജ്ജുനൻ പറഞ്ഞു';
+  if (clean.includes('युधिष्ठिर')) return 'യുധിഷ്ഠിരൻ പറഞ്ഞു';
+  if (clean.includes('कुन्त्य')) return 'കുന്തീദേവി പറഞ്ഞു';
+  if (clean.includes('भीष्म')) return 'ഭീഷ്മർ പറഞ്ഞു';
+  if (clean.includes('गजेन्द्र')) return 'ഗജേന്ദ്രൻ പറഞ്ഞു';
+  if (clean.includes('मनु')) return 'മനു പറഞ്ഞു';
+  if (clean.includes('ध्रुव')) return 'ധ്രുവൻ പറഞ്ഞു';
+  if (clean.includes('दक्ष')) return 'ദക്ഷൻ പറഞ്ഞു';
+  return undefined; // Omit if unmapped to guarantee zero Sanskrit appears in UI
+}
+
 const inputPath = path.join('scripts', 'bhagavata_purana_flat.jsonl');
 if (!fs.existsSync(inputPath)) {
   console.error(`Input file not found: ${inputPath}`);
@@ -80,9 +126,8 @@ rl.on('line', (line) => {
   const s = obj.skandha;
   const c = obj.adhyaya;
   const v = obj.sloka;
-  // Handle vachana_only verses (e.g. 4.21.45 Maitreya uvacha)
-  const sanskritText = (obj.devanagari || obj.vachana_devanagari || '').trim();
-  const speaker = obj.devanagari ? (obj.vachana_devanagari || '').trim() || undefined : undefined;
+  const rawSpeaker = obj.devanagari ? (obj.vachana_devanagari || '').trim() || undefined : undefined;
+  const speakerMalayalam = mapSpeakerToMalayalam(rawSpeaker);
 
   const key = `${s}-${c}`;
   if (!chapterSlokasMap.has(key)) {
@@ -96,17 +141,20 @@ rl.on('line', (line) => {
 
   const authoredMeaning = malayalamMap.get(`${s}-${c}-${v}`) || '';
 
-  chapterSlokasMap.get(key).push({
+  const entry = {
     id: slokaId,
     skandha: s,
     chapter: c,
     sloka: v,
-    sanskrit: sanskritText,
     malayalamMeaning: authoredMeaning,
     source: 'Sanskrit Documents / Gitapress',
-    speaker,
-  });
+  };
 
+  if (speakerMalayalam) {
+    entry.speaker = speakerMalayalam;
+  }
+
+  chapterSlokasMap.get(key).push(entry);
   totalVersesParsed++;
 });
 

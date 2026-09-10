@@ -9,7 +9,6 @@ import { getChapter, getChaptersForSkandam, getSkandamMeta, getAllSkandams } fro
 import { useReadingProgress } from '@/hooks/useReadingProgress';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { useReadingSettings } from '@/hooks/useReadingSettings';
-import { useCustomContent } from '@/hooks/useCustomContent';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import { useAutoScroll } from '@/hooks/useAutoScroll';
 import { useMalayalamSpeech } from '@/hooks/useMalayalamSpeech';
@@ -25,7 +24,6 @@ import {
   Type,
   Check,
   Share2,
-  Edit3,
   Volume2,
   VolumeX,
   Sun,
@@ -57,7 +55,6 @@ export default function ChapterReadingPage() {
 
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { cycleTextSize, getTextSizeClass } = useReadingSettings();
-  const { customSections, saveCustomSections } = useCustomContent(skandamNum, chapterNum);
 
   // Upgrade Hooks
   const { isLocked: isScreenAwake } = useWakeLock(true);
@@ -71,23 +68,32 @@ export default function ChapterReadingPage() {
   } = useMalayalamSpeech();
 
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isDiaryOpen, setIsDiaryOpen] = useState(false);
   const [isJumpModalOpen, setIsJumpModalOpen] = useState(false);
-  const [editableSections, setEditableSections] = useState<Section[]>([]);
   const [activeSlokaIndex, setActiveSlokaIndex] = useState(0);
 
   const isCompleted = isChapterCompleted(skandamNum, chapterNum);
 
-  // Filter out any legacy placeholder strings if stored in customSections
-  const cleanCustomSections =
-    customSections &&
-    customSections.length > 0 &&
-    !customSections.some((s) => s.meaning.includes('മാറ്റിവെച്ചിരിക്കുന്നു'))
-      ? customSections
-      : null;
+  // Canonical sections from verified dataset
+  const sectionsToDisplay: Section[] = chapter?.sections || [];
 
-  const sectionsToDisplay: Section[] = cleanCustomSections || chapter?.sections || [];
+  // Purge any stale legacy placeholder cache from browser localStorage on mount
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('custom_chapter_')) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach((k) => localStorage.removeItem(k));
+      }
+    } catch (e) {
+      console.warn('Cache purge notice:', e);
+    }
+  }, []);
 
   // Cross-chapter and cross-skandha navigation
   let prevLink: string | null = null;
@@ -119,13 +125,6 @@ export default function ChapterReadingPage() {
       ? Math.round((completedSlokasInChapter / sectionsToDisplay.length) * 100)
       : 0;
   const totalBhagavatamSlokasRead = getCompletedSlokasCount();
-
-  // Sync editable sections when editor opens
-  useEffect(() => {
-    if (isEditorOpen) {
-      setEditableSections([...sectionsToDisplay]);
-    }
-  }, [isEditorOpen]);
 
   // Save progress on mount or chapter change
   useEffect(() => {
@@ -490,7 +489,6 @@ export default function ChapterReadingPage() {
                           sectionNumber: sec.number,
                           slokaNumber: typeof sec.number === 'number' ? sec.number : parseInt(String(sec.number), 10),
                           meaningSnippet: sec.meaning ? sec.meaning.slice(0, 120) : '',
-                          sanskritSnippet: '',
                           timestamp: Date.now(),
                         })
                       }
@@ -532,7 +530,7 @@ export default function ChapterReadingPage() {
                   </div>
                 ) : (
                   <div className="mt-2 text-xs text-devotional-secondary/70 italic bg-black/5 px-3 py-2 rounded-lg">
-                    ഈ ഭാഗത്തിന്റെ ആധികാരിക മലയാള അർത്ഥം ഉടൻ ലഭ്യമാക്കുന്നതാണ്.
+                    മലയാള അർത്ഥം ലഭ്യമല്ല.
                   </div>
                 )}
               </article>

@@ -142,23 +142,31 @@ for (let s = 1; s <= 12; s++) {
       }
       prevSlokaNum = verse.sloka;
 
-      // 5. Check Sanskrit text presence
-      if (!verse.sanskrit || typeof verse.sanskrit !== 'string' || verse.sanskrit.trim().length === 0) {
-        errors.push(`Missing Sanskrit text in ${verse.id}`);
-      } else {
-        // Unicode check for replacement character or corruption
-        if (verse.sanskrit.includes('\uFFFD')) {
-          errors.push(`Malformed Unicode (replacement char) in Sanskrit: ${verse.id}`);
-        }
+      // 5. Verify NO Sanskrit text field exists in frontend data files
+      if (verse.sanskrit !== undefined) {
+        errors.push(`Forbidden Sanskrit field found in ${verse.id}`);
       }
 
       // 6. Check Malayalam meaning integrity
-      if (verse.malayalamMeaning && verse.malayalamMeaning.trim().length > 0) {
+      if (verse.malayalamMeaning && typeof verse.malayalamMeaning === 'string' && verse.malayalamMeaning.trim().length > 0) {
         totalMalayalamAuthored++;
-        // Check for placeholder text that user strictly forbade
-        if (verse.malayalamMeaning.includes('മാറ്റിവെച്ചിരിക്കുന്നു') || verse.malayalamMeaning.includes('അർത്ഥം ചേർക്കുവാനായി')) {
+
+        // Strict Sanskrit detection: verify NO Devanagari characters leaked into Malayalam field
+        if (/[\u0900-\u097F]/.test(verse.malayalamMeaning)) {
+          errors.push(`Accidental Sanskrit Devanagari text detected in Malayalam meaning for ${verse.id}`);
+        }
+
+        // Strict placeholder detection: user explicitly forbade these strings
+        if (
+          verse.malayalamMeaning.includes('മാറ്റിവെ') ||
+          verse.malayalamMeaning.includes('അർത്ഥം ചേർക്കുവാനായി') ||
+          verse.malayalamMeaning.includes('Meaning will be added') ||
+          verse.malayalamMeaning.includes('Coming soon') ||
+          verse.malayalamMeaning.includes('[Malayalam meaning here]')
+        ) {
           errors.push(`Forbidden placeholder text found in ${verse.id}: "${verse.malayalamMeaning}"`);
         }
+
         if (verse.malayalamMeaning.includes('\uFFFD')) {
           errors.push(`Malformed Unicode in Malayalam meaning: ${verse.id}`);
         }
@@ -166,7 +174,12 @@ for (let s = 1; s <= 12; s++) {
         totalMalayalamPending++;
       }
 
-      // 7. Check source attribution
+      // 7. Verify speaker does not contain Sanskrit Devanagari
+      if (verse.speaker && /[\u0900-\u097F]/.test(verse.speaker)) {
+        errors.push(`Accidental Sanskrit Devanagari text in speaker field for ${verse.id}: "${verse.speaker}"`);
+      }
+
+      // 8. Check source attribution
       if (!verse.source || verse.source.trim().length === 0) {
         errors.push(`Missing source attribution in ${verse.id}`);
       }
@@ -178,7 +191,7 @@ console.log('----------------------------------------------------');
 console.log(`Total Chapters Verified: ${seenChapters.size} / ${expectedTotalChapters}`);
 console.log(`Total Ślokas Verified:   ${totalSlokasChecked}`);
 console.log(`Unique Śloka IDs:        ${seenSlokaIds.size}`);
-console.log(`Sanskrit Text Verified:  ${totalSlokasChecked} / ${totalSlokasChecked} (100% complete)`);
+console.log(`Sanskrit Text in UI/DB:  0 (Strictly Malayalam-Only Verified)`);
 console.log(`Malayalam Meaning Authored: ${totalMalayalamAuthored}`);
 console.log(`Malayalam Meaning Pending:  ${totalMalayalamPending}`);
 console.log('----------------------------------------------------\n');
@@ -192,6 +205,6 @@ if (errors.length > 0) {
   process.exit(1);
 } else {
   console.log('SUCCESS: All 12 Skandhas, 335 chapters, and 14,089 ślokas passed 100% of data integrity checks!');
-  console.log('Zero duplicates, strictly ascending sequence, zero placeholder strings, and valid Unicode formatting.\n');
+  console.log('Zero Sanskrit, zero duplicates, strictly ascending sequence, zero placeholder strings, and valid Unicode formatting.\n');
   process.exit(0);
 }
