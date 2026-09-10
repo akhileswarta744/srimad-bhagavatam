@@ -42,3 +42,4 @@ next-env.d.ts
 
 # scripts raw data cache
 scripts/*.jsonl
+scripts/tools/

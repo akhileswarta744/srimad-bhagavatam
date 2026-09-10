@@ -10,39 +10,39 @@
         },
         "2": {
           "verseCount": 34,
-          "malayalamVerseCount": 8
+          "malayalamVerseCount": 34
         },
         "3": {
           "verseCount": 45,
-          "malayalamVerseCount": 9
+          "malayalamVerseCount": 45
         },
         "4": {
           "verseCount": 33,
-          "malayalamVerseCount": 4
+          "malayalamVerseCount": 33
         },
         "5": {
           "verseCount": 40,
-          "malayalamVerseCount": 4
+          "malayalamVerseCount": 40
         },
         "6": {
           "verseCount": 39,
-          "malayalamVerseCount": 3
+          "malayalamVerseCount": 39
         },
         "7": {
           "verseCount": 58,
-          "malayalamVerseCount": 4
+          "malayalamVerseCount": 58
         },
         "8": {
           "verseCount": 52,
-          "malayalamVerseCount": 4
+          "malayalamVerseCount": 52
         },
         "9": {
           "verseCount": 49,
-          "malayalamVerseCount": 4
+          "malayalamVerseCount": 49
         },
         "10": {
           "verseCount": 36,
-          "malayalamVerseCount": 3
+          "malayalamVerseCount": 36
         },
         "11": {
           "verseCount": 40,
@@ -82,7 +82,7 @@
         }
       },
       "totalVerses": 813,
-      "totalMalayalamAuthored": 96
+      "totalMalayalamAuthored": 439
     },
     "2": {
       "chapters": {
@@ -1414,5 +1414,6 @@
       "totalVerses": 565,
       "totalMalayalamAuthored": 0
     }
-  }
+  },
+  "totalMalayalamAuthored": 485
 }
